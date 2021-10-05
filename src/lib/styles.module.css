@@ -1,0 +1,267 @@
+.container{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.editorContainer{
+    padding: 1em;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+}
+
+.boxContainer{
+    border: 1px solid rgba(0,0,0,.2);
+    height: 100%;
+    width: 100%;
+}
+
+.overlay{
+    display: inline-block;
+    position: fixed;
+    z-index: 2;
+    background-color: rgba(255,255,255,.2);
+}
+
+.output{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5em;
+    font-size: 1.1em;
+}
+
+.insertBanner{
+    padding: 5px 10px;
+    background-color: #AAAAAA;
+}
+
+.bannerSpan{
+    color: white;
+    padding: 2px 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.insertBanner:hover{
+    background: #505050;
+    cursor: pointer;
+}
+
+.jsonListOutput{
+    overflow-y: auto;
+    height: 100%;
+}
+
+.indent{
+    padding-left: 0.5em;
+}
+
+.dataContainer{
+    display: block;
+    width: 100%;
+
+}
+
+.dataNode{
+    position: relative;
+    min-height: 32px;
+}
+
+.clickNode{
+    display: flex;
+    padding: 0 0.5em;
+}
+
+.rightContainer{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 1em;
+    color: rgba(0,0,0,.54);
+    background-image: linear-gradient(to right, transparent 0, #f5f5f5 0.5em);
+    font-size: 16px;
+    display: none;
+}
+
+.rightButton{
+    padding-left: 5px;
+}
+
+.clickNode:hover{
+    background: #f5f5f5;
+}
+
+.clickNode:hover .rightContainer{
+    display: flex;
+}
+
+.keyData{
+    display: flex;
+}
+
+.arrayType + span{
+    background-color: rgba(0,0,0,.08);
+    border-radius: 2px;
+    padding: 0 4px;
+    text-align: center;
+    max-height: 26px;
+}
+
+.valueData{
+    display: inline-block;
+    margin-left: 4px;
+    color: rgba(0,0,0,.6);
+}
+
+.keyData:after {
+    content: " : ";
+}
+
+.arrayType + .keyData + .valueData:before{
+    content: " ";
+}
+
+.arrowDown{
+    margin-right: 8px;
+    border: solid rgba(0,0,0,.54);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    cursor: pointer;
+}
+
+.arrowRight{
+    margin-right: 8px;
+    border: solid rgba(0,0,0,.54);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    cursor: pointer;
+}
+
+.modalContainer {
+    margin-left: 1.5em;
+    box-sizing: border-box;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    background-color: white;
+    padding: 0.5em;
+    position : absolute;
+    z-index: 3;
+}
+
+.modalContentContainer {
+    display: flex;
+    margin-bottom: 0.5em;
+    min-width: 200px;
+}
+
+.modalInputContainer{
+    display: block;
+}
+
+.modalLabel{
+    display: block;
+    font-size: 14px;
+    min-height: 20px;
+    line-height: 20px;
+    color: rgba(0,0,0,.54);
+}
+
+.modalInput{
+    min-height: 30px;
+    font-size: 16px;
+    max-width: 130px;
+}
+
+.modalNoLabel{
+    display: block;
+    padding: 20px 5px 0;
+    min-height: 20px;
+
+    font-weight: bolder;
+}
+
+.modalBtnContainer{
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    padding: 0.5em;
+}
+
+.modalModifyBtnContainer{
+    display: block;
+
+}
+.modalModifyBtn{
+    margin-left: 5px;
+}
+
+.delButton{
+    margin-left: 10px;
+    max-height: 25px;
+}
+
+.arrayIndex{
+    margin: 20px 5px 0;
+    font-size: 16px;
+}
+.arrayIndexInput{
+    min-height: 30px;
+    border-radius: 2px;
+    padding: 0 4px;
+    font-size: 16px;
+    background-color: rgba(0,0,0,.08);
+    text-align: center;
+}
+
+.addLine{
+    display: flex;
+    margin-left: 10px;
+}
+
+.nodeLine{
+    width: 2px;
+    margin: 0 0 18px;
+    border-right-style:solid ;
+    border-width: 0.15em;
+    border-color: #f0f0f0;
+}
+
+.nodePlusLineContainer{
+    display: flex;
+    flex-direction: row;
+}
+.nodePlusLine{
+    border-bottom-style: solid;
+    border-width: 0.15em;
+    border-color: #f0f0f0;
+    margin: 0 0 18px;
+    height: 20px;
+    width: 16px;
+}
+
+.nodePlusLineContainer button{
+    margin: 8px 0;
+}
+
+.listContainer{
+    display: flex;
+}
+
+.listLine{
+    height: 20px;
+    width: 16px;
+    margin-top: 14px;
+    border-bottom-style: solid;
+    border-width: 0.15em;
+    border-color: #f0f0f0;
+}
