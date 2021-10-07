@@ -5,16 +5,18 @@ import ModalEditor from "./ModalEditor";
 import DisplayJson from "./DisplayJson";
 
 /**
- * Makes JSON Objects as JSX.Element
- * manipulates the JSON Objects
- * Calls ModalEditor to add to the JSON Object when a users clicks top Insert object <div>
- * @param input jsonData
- * @param jsonBoxRef
- * @param saveJSON
+ * Creates new JSON Object by copying a JSON Object
+ * Manipulates new JSON Object and return the JSON Object to a user
+ * Calls DisplayJson component to display
+ * Calls ModalEditor to add an Object when a users clicks top Insert object <div>
+ *
+ *
+ * @param input a JSON Object from a user
+ * @param jsonBoxRef a parent reference that has a current position
+ * @param saveJSON a callback function that returns JSON Object
  * @returns {JSX.Element}
  *
  */
-
 export default function Editor({input, jsonBoxRef, saveJSON}) {
 
     const emptyEditObject = {
@@ -27,18 +29,25 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
         isValueObject: undefined,
         currentTop: undefined
     }
-    const jsonListOutput = useRef()
 
+    // indicates y-scroll
+    const jsonListOutput = useRef()
+    // blocks focus while a user edits
     const [overlay, setOverlay] = useState(false)
+    // shows modal editor when a user clicks "+ insert object" on the top banner
     const [newObject, setNewObject] = useState(false)
+    // shows modal editor when a user clicks "add" or "edit" button on right container
     const [editObject, setEditObject] = useState(emptyEditObject)
+    // new json object to manipulate
     const [jsonData, setJsonData] = useState(input === undefined ? {} : input)
 
     let tempObj = deepCopy(jsonData)
 
+    // after change the json object, it calls a callback function to return new json object
     useEffect(() => {
         saveJSON(jsonData)
     }, [jsonData])
+
 
     function deepCopy(input) {
         return JSON.parse(JSON.stringify(input))
@@ -54,8 +63,6 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
             pointer.remove(tempObj, path)
             setJsonData(deepCopy(tempObj))
         }
-
-
     }
 
     // modify json object
@@ -82,7 +89,7 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
 
     }
 
-    // saves information for modal editor when a user clicks add or edit button
+    // saves information for modal editor when a user clicks "add" or "edit" button
     function createModal(jsonPath, value, field, type, isInArray, isValueArray, isValueObject, currentTop) {
 
         setEditObject({
@@ -101,31 +108,33 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
     return (
 
         <div className={styles.editorContainer}>
-            {(overlay || newObject) && <div className={styles.overlay} style={{
-                width: jsonBoxRef.current.offsetWidth,
-                height: jsonBoxRef.current.offsetHeight,
-                margin: "-1em"
-            }}/>}
-            <div className={styles.boxContainer}>
 
+            {
+                (overlay || newObject) &&
+
+                <div className={styles.overlay} style={{
+                    width: jsonBoxRef.current.offsetWidth,
+                    height: jsonBoxRef.current.offsetHeight,
+                    margin: "-1em"
+                }}/>
+            }
+
+            <div className={styles.boxContainer}>
                 {
-                    /* shows modal editor when a user clicks + insert object on the top banner */
+                    // shows modal editor when a user clicks "+ insert object" on the top banner
                     newObject &&
                     <div style={{marginTop: "2.5em", position: "absolute"}}>
-                        <ModalEditor hideModal={() => {
-                            setNewObject(false)
-                        }} jsonPath={''} changeNode={(path, value) => {
-                            changeNode(path, value)
-                        }} deleteNode={() => {
-                            setNewObject(false)
-                        }}
-                                     editValue={{field: "new"}}
-                        />
+                        <ModalEditor
+                            hideModal={() => { setNewObject(false) }}
+                            jsonPath={''}
+                            changeNode={(path, value) => { changeNode(path, value) }}
+                            deleteNode={() => { setNewObject(false) }}
+                            editValue={{field: "new"}} />
                     </div>
                 }
 
                 {
-                    /* shows modal editor when a user clicks add or edit button on right container */
+                    // shows modal editor when a user clicks "add" or "edit" button on right container
                     (editObject.jsonPath !== undefined) &&
                     <div style={{top: editObject.currentTop, position: "absolute"}}>
                         <ModalEditor jsonPath={editObject.jsonPath}
@@ -139,7 +148,7 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
                                      }}
                                      hideModal={() => {
                                          setEditObject(emptyEditObject);
-                                         setOverlay()
+                                         setOverlay(!overlay)
                                      }}
                                      deleteNode={deleteNode} changeNode={changeNode}/>
                     </div>
@@ -147,25 +156,20 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
 
                 <div key={"jsonBody"} className={styles.output}>
 
-                    <div className={styles.insertBanner} onClick={() => {
-                        setNewObject(true)
-                    }}>
+                    <div className={styles.insertBanner} onClick={() => { setNewObject(true) }}>
                         <span className={styles.bannerSpan}> + Insert object</span>
                     </div>
 
                     {/* displays json content */}
                     <div className={styles.jsonListOutput} ref={jsonListOutput}>
                         <DisplayJson key={"DisplayJson"}
-                                     input={jsonData} indent={1} jsonPath={""} getOverlay={() => {
-                            return overlay
-                        }} setOverlay={() => {
-                            setOverlay(!overlay)
-                        }}
-                                     deleteNode={(path) => {
-                                         deleteNode(path)
-                                     }} changeNode={(path, value) => {
-                            changeNode(path, value)
-                        }}
+                                     input={jsonData}
+                                     indent={1}
+                                     jsonPath={""}
+                                     getOverlay={() => { return overlay }}
+                                     setOverlay={() => { setOverlay(!overlay)}}
+                                     deleteNode={(path) => { deleteNode(path) }}
+                                     changeNode={(path, value) => { changeNode(path, value)}}
                                      createModal={(jsonPath, value, field, type, isInArray, isValueArray, isValueObject, currentTop) => {
                                          createModal(jsonPath, value, field, type, isInArray, isValueArray, isValueObject, currentTop)
                                      }}

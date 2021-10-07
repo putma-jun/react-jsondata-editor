@@ -8,11 +8,11 @@ import TypeOfValue from "./TypeOfValue";
  * Displays nodes from JsonObject List
  * When a user clicks edit or add, calls Modal component
  *
- * @param input
- * @param indent
- * @param jsonPath
- * @param getOverlay
- * @param setOverlay
+ * @param input a JSON Object
+ * @param indent indentation
+ * @param jsonPath a current path
+ * @param getOverlay returns overlay status
+ * @param setOverlay sets Overlay
  * @param deleteNode
  * @param changeNode
  * @param needLeaf
