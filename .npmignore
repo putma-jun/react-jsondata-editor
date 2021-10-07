@@ -1,4 +1,5 @@
 /.idea
 /node_modules
-
-
+/.babelrc
+/rollup.config.js
+/src
