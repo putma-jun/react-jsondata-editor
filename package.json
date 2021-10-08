@@ -1,6 +1,6 @@
 {
   "name": "react-jsondata-editor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A JSON editor library that displays and manipulates JSON objects",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -42,6 +42,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rollup": "^2.58.0",
-    "rollup-plugin-postcss": "^4.0.1"
+    "rollup-plugin-postcss": "^4.0.1",
+    "rollup-plugin-uglify": "^6.0.4"
   }
 }

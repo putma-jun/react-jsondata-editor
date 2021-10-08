@@ -2,6 +2,7 @@ import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
+import {uglify} from 'rollup-plugin-uglify';
 
 
 export default {
@@ -25,7 +26,8 @@ export default {
       exclude: 'node_modules/**',
       babelHelpers: "runtime"
     }),
-    commonjs()
+    commonjs(),
+    uglify(),
   ],
   external: ['react']
 }
