@@ -8,6 +8,7 @@
     "build": "rollup -c",
     "demo:build": "parcel build demo/index.html",
     "demo:start": "parcel demo/index.html",
+    "test": "jest",
     "clean": "rimraf dist && rimraf .parcel-cache && rimraf lib"
   },
   "keywords": [
@@ -43,5 +44,8 @@
     "rollup": "^2.58.0",
     "rollup-plugin-postcss": "^4.0.1",
     "rollup-plugin-uglify": "^6.0.4"
+  },
+  "dependencies": {
+    "jest": "^27.2.5"
   }
 }
