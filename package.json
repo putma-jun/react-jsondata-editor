@@ -8,8 +8,7 @@
     "build": "rollup -c",
     "demo:build": "parcel build demo/index.html",
     "demo:start": "parcel demo/index.html",
-    "clean": "rimraf dist && rimraf .parcel-cache && rimraf lib",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf dist && rimraf .parcel-cache && rimraf lib"
   },
   "keywords": [
     "react json editor",
