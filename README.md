@@ -117,12 +117,16 @@ export default function Home() {
 
                     <div className={styles.middleContainer}>
                         <div style={{textAlign:"center"}}>
-                            <button type={"button"} onClick={saveJsonString}><span><i className={styles.arrowLeft}/> String</span></button>
+                            <button type={"button"} onClick={saveJsonString}>
+                                <span><i className={styles.arrowLeft}/> String</span>
+                            </button>
                         </div>
                     </div>
 
                     <div className={styles.output}>
-                        <JsonEditor input={JSON.parse(jsonInput)} saveJSON={(output)=>{currentEditObj = output}} />
+                        <JsonEditor 
+                            input={JSON.parse(jsonInput)} 
+                            saveJSON={(output)=>{currentEditObj = output}} />
                     </div>
                 </div>
 
