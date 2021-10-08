@@ -3,3 +3,6 @@
 /.babelrc
 /rollup.config.js
 /src
+/demo
+/.parcel-cache
+/dist

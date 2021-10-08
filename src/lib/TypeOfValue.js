@@ -1,5 +1,11 @@
 import React from 'react';
 
+/**
+ * Turns primitive types into string.
+ *
+ * @param input
+ * @returns {string}
+ */
 export default function TypeOfValue(input) {
 
     if (input === null)
