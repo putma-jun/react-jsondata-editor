@@ -166,7 +166,6 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
                                      input={jsonData}
                                      indent={1}
                                      jsonPath={""}
-                                     getOverlay={() => { return overlay }}
                                      setOverlay={() => { setOverlay(!overlay)}}
                                      deleteNode={(path) => { deleteNode(path) }}
                                      changeNode={(path, value) => { changeNode(path, value)}}

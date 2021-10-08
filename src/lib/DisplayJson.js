@@ -5,28 +5,26 @@ import ValueToString from "./ValueToString";
 import TypeOfValue from "./TypeOfValue";
 
 /**
- * Displays nodes from JsonObject List
- * When a user clicks edit or add, calls Modal component
+ * Displays nodes from the JSON Object
+ * When a user clicks edit or add, calls createModal to create modal
+ * DisplayJson - DisplayNode are reclusive function
  *
  * @param input a JSON Object
  * @param indent indentation
  * @param jsonPath a current path
- * @param getOverlay returns overlay status
  * @param setOverlay sets Overlay
- * @param deleteNode
- * @param changeNode
- * @param needLeaf
- * @param createModal
- * @param jsonListOutput
+ * @param deleteNode delete an object from the JSON Object
+ * @param changeNode modifies the JSON Object
+ * @param needLeaf indicates "", [] or {}
+ * @param createModal creates edit modal component
+ * @param jsonListOutput indicates y-scroll
  * @returns {JSX.Element|[]}
- * @constructor
  */
 export default function DisplayJson(
     {
         input,
         indent,
         jsonPath,
-        getOverlay,
         setOverlay,
         deleteNode,
         changeNode,
@@ -120,13 +118,13 @@ export default function DisplayJson(
         )
     }
 
-    // input is either Object or an Array
+    // input is either an Object or an Array
     return (
         Object.entries(input).map(([key, value]) => {
             indexForKey = indexForKey + 1
             return (
                 <DisplayNode key={jsonPath + key + indexForKey} field={key} value={value} indent={indent}
-                             isInArray={input instanceof Array} jsonPath={jsonPath} getOverlay={getOverlay}
+                             isInArray={input instanceof Array} jsonPath={jsonPath}
                              setOverlay={setOverlay} deleteNode={deleteNode} changeNode={changeNode}
                              createModal={createModal}
                              createEditModal={(jsonPath, value, field, type, isInArray, isValueArray, isValueObject, inputRef) => {
@@ -139,20 +137,22 @@ export default function DisplayJson(
 
 /**
  * Creates view for json object
+ * shows type and edit and delete buttons on the right
  *
- * @param field
- * @param value
- * @param indent
- * @param isInArray
- * @param jsonPath
- * @param getOverlay
- * @param setOverlay
- * @param deleteNode
- * @param changeNode
- * @param createModal
- * @param createEditModal
- * @param jsonListOutput
+ *
+ * @param field key
+ * @param value value
+ * @param indent indentation
+ * @param isInArray indicates input is instanceof Array
+ * @param jsonPath current path
+ * @param setOverlay sets Overlay
+ * @param deleteNode delete an object from the JSON Object
+ * @param changeNode modify the JSON Object
+ * @param createModal creates edit modal component
+ * @param createEditModal saves information with current position node of for modal editor when a user clicks add or edit button
+ * @param jsonListOutput indicates y-scroll
  * @returns {JSX.Element}
+ *
  *
  */
 function DisplayNode({
@@ -161,7 +161,6 @@ function DisplayNode({
                          indent,
                          isInArray,
                          jsonPath,
-                         getOverlay,
                          setOverlay,
                          deleteNode,
                          changeNode,
@@ -224,7 +223,7 @@ function DisplayNode({
 
             {
                 isList && showContent &&
-                <DisplayJson jsonPath={jsonPath + '/' + field} input={value} indent={indent + 1} getOverlay={getOverlay}
+                <DisplayJson jsonPath={jsonPath + '/' + field} input={value} indent={indent + 1}
                              setOverlay={setOverlay} deleteNode={deleteNode} changeNode={changeNode} needLeaf={false}
                              createModal={createModal} createEditModal={createEditModal}
                              jsonListOutput={jsonListOutput}/>

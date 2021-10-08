@@ -6,15 +6,14 @@ import TypeOfValue from "./TypeOfValue";
 const typeOptions = ["string", "number", "boolean", "null", "object", "array"]
 
 /**
- * Creates new object from user inputs
+ * Creates a modal to add new object from user inputs
  *
- * @param editValue
- * @param hideModal
- * @param jsonPath
- * @param deleteNode
- * @param changeNode
+ * @param editValue value, type, field, isInArray, isValueArray, isValueObject
+ * @param hideModal hides modalEditor
+ * @param jsonPath current path
+ * @param deleteNode deletes an object from the JSON Object
+ * @param changeNode modifies the JSON Object
  * @returns {JSX.Element}
- * @constructor
  */
 export default function ModalEditor({editValue, hideModal, jsonPath, deleteNode, changeNode}) {
 
@@ -34,7 +33,7 @@ export default function ModalEditor({editValue, hideModal, jsonPath, deleteNode,
         hideModal()
     }
 
-    // modify json object
+    // saves json object
     function saveJsonObject(){
         let typeofValue = TypeOfValue(pointer.get(modalObj, '/' + field))
 
@@ -55,7 +54,7 @@ export default function ModalEditor({editValue, hideModal, jsonPath, deleteNode,
         hideModal()
     }
 
-    // delete node
+    // deletes node
     function removeObj(){
         deleteNode(jsonPath + '/' + field)
         hideModal()
@@ -91,18 +90,18 @@ export default function ModalEditor({editValue, hideModal, jsonPath, deleteNode,
  * Creates a basic container for new Object
  * Manipulates by value type
  *
- * @param modalObj
- * @param field
- * @param value
- * @param valueType
- * @param isInArray
- * @param path
- * @param isArray
- * @param isObject
- * @param removeNode
- * @param render
- * @param isRoot
- * @param saveField
+ * @param modalObj temp JSON Object that holds new data
+ * @param field key
+ * @param value values
+ * @param valueType type of value
+ * @param isInArray indicates input is instanceof Array
+ * @param path current path
+ * @param isArray indicates input is an Array
+ * @param isObject indicates input is an Object
+ * @param removeNode deletes an object from the JSON Object
+ * @param render re-render
+ * @param isRoot indicates root
+ * @param saveField saves key
  * @returns {JSX.Element}
  *
  */
@@ -147,7 +146,7 @@ function ModalObjectContainer({modalObj, field, value, valueType, isInArray, pat
     }else {
         //inputType === Object
         if(!(pointer.get(modalObj, path + '/' + field) instanceof Object))
-            pointer.set(modalObj, path + '/' + field, {"empty(0)": ""})
+            pointer.set(modalObj, path + '/' + field, {"(0)": ""})
 
         return(
             <ObjectEditor modalObj={modalObj} field={field} path={path} isInArray={isInArray} isObject={isObject} saveType={(type) => {setInputType(type)}} isRoot={isRoot} removeParentNode={removeNode}/>
@@ -159,16 +158,18 @@ function ModalObjectContainer({modalObj, field, value, valueType, isInArray, pat
 
 /**
  * Creates a map has null value
- * @param modalObj
- * @param field
- * @param path
- * @param isInArray
- * @param isArray
- * @param isObject
- * @param isRoot
- * @param saveType
- * @param removeNode
- * @param saveField
+ * Changes to another type when type is changed
+ *
+ * @param modalObj temp JSON Object that holds new data
+ * @param field key
+ * @param path values
+ * @param isInArray indicates input is instanceof Array
+ * @param isArray indicates input is an Array
+ * @param isObject indicates input is an Object
+ * @param isRoot indicates root
+ * @param saveType saves type of value
+ * @param removeNode deletes an object from the JSON Object
+ * @param saveField saves key
  * @returns {JSX.Element}
  *
  */
@@ -228,18 +229,19 @@ function NullEditor({modalObj, field, path, isInArray, isArray, isObject, isRoot
 
 /**
  * Creates a map has a boolean value
+ * Changes to another type when type is changed
  *
- * @param modalObj
- * @param field
- * @param path
- * @param isInArray
- * @param isArray
- * @param isObject
- * @param isRoot
- * @param saveType
- * @param removeNode
- * @param render
- * @param saveField
+ * @param modalObj temp JSON Object that holds new data
+ * @param field key
+ * @param path values
+ * @param isInArray indicates input is instanceof Array
+ * @param isArray indicates input is an Array
+ * @param isObject indicates input is an Object
+ * @param isRoot indicates root
+ * @param saveType saves type of value
+ * @param removeNode deletes an object from the JSON Object
+ * @param render re-render when value is changed
+ * @param saveField saves key
  * @returns {JSX.Element}
  *
  */
@@ -312,18 +314,19 @@ function BooleanEditor({modalObj, field, path, isInArray, isArray, isObject, isR
 
 /**
  * Creates a map has a number value
+ * Changes to another type when type is changed
  *
- * @param modalObj
- * @param field
- * @param path
- * @param isInArray
- * @param isArray
- * @param isObject
- * @param isRoot
- * @param saveType
- * @param removeNode
- * @param render
- * @param saveField
+ * @param modalObj temp JSON Object that holds new data
+ * @param field key
+ * @param path values
+ * @param isInArray indicates input is instanceof Array
+ * @param isArray indicates input is an Array
+ * @param isObject indicates input is an Object
+ * @param isRoot indicates root
+ * @param saveType saves type of value
+ * @param removeNode deletes an object from the JSON Object
+ * @param render re-render when value is changed
+ * @param saveField saves key
  * @returns {JSX.Element}
  *
  */
@@ -367,7 +370,6 @@ function NumberEditor({modalObj, field, path, isInArray, isArray, isObject, isRo
         if(e.target.value !== "" && !Number.isNaN(numberValue)) {
             pointer.set(modalObj, path + '/' + inputField, numberValue)
             setIsValueNum(true)
-            console.log(modalObj)
         } else {
             pointer.set(modalObj, path + '/' + inputField, 0)
             setIsValueNum(false)
@@ -430,18 +432,19 @@ function NumberEditor({modalObj, field, path, isInArray, isArray, isObject, isRo
 
 /**
  * Creates a map has a String value
+ * Changes to another type when type is changed
  *
- * @param modalObj
- * @param field
- * @param path
- * @param isInArray
- * @param isArray
- * @param isObject
- * @param isRoot
- * @param saveType
- * @param removeNode
- * @param render
- * @param saveField
+ * @param modalObj temp JSON Object that holds new data
+ * @param field key
+ * @param path values
+ * @param isInArray indicates input is instanceof Array
+ * @param isArray indicates input is an Array
+ * @param isObject indicates input is an Object
+ * @param isRoot indicates root
+ * @param saveType saves type of value
+ * @param removeNode deletes an object from the JSON Object
+ * @param render re-render when value is changed
+ * @param saveField saves key
  * @returns {JSX.Element}
  *
  */
@@ -514,16 +517,14 @@ function StringEditor({modalObj, field, path, isInArray, isArray, isObject, isRo
 /**
  * Calls ModalObjectContainer to make new array from key or empty
  *
- * @param modalObj
- * @param field
- * @param path
- * @param arrayIndex
+ * @param modalObj temp JSON Object that holds new data
+ * @param field key
+ * @param path current path
+ * @param arrayIndex index of input array
  * @returns {JSX.Element}
  *
  */
-
 function ArrayNodeEditor( {modalObj, field,  path, arrayIndex}) {
-    //const arrayIndex = pointer.get(modalObj, path + '/' + field).length
 
     pointer.set(modalObj, path + '/' + field + '/' + arrayIndex, "")
 
@@ -533,17 +534,17 @@ function ArrayNodeEditor( {modalObj, field,  path, arrayIndex}) {
 }
 
 /**
- * Creates an array that has a parent component and one index child by followed
+ * Creates an array that has a parent component and adds one index child by followed
  *
- * @param modalObj
- * @param field
- * @param path
- * @param isInArray
- * @param isObject
- * @param saveType
- * @param isRoot
- * @param saveField
- * @param removeParentNode
+ * @param modalObj temp JSON Object that holds new data
+ * @param field key
+ * @param path current path
+ * @param isInArray indicates input is instanceof Array
+ * @param isObject indicates input is in an Object
+ * @param saveType saves type
+ * @param isRoot indicates root
+ * @param saveField saves key
+ * @param removeParentNode removes a nod from parent list
  * @returns {JSX.Element}
  *
  */
@@ -572,10 +573,7 @@ function ArrayEditor({modalObj, field, path, isInArray, isObject, saveType, isRo
     }
 
     function removeNode(modalObj, arrayField, path) {
-
-
         pointer.get(modalObj, path).splice(parseInt(arrayField), 1)
-
         setRender(!render)
 
     }
@@ -664,15 +662,15 @@ function ArrayEditor({modalObj, field, path, isInArray, isObject, saveType, isRo
 
 /** calls ModalObjectContainer to make new object from key or empty
  *
- * @param modalObj
- * @param ObjKey
- * @param path
+ * @param modalObj temp JSON Object that holds new data
+ * @param ObjKey key
+ * @param path current path
  * @returns {JSX.Element}
  *
  */
 function ObjectNodeEditor({modalObj, ObjKey, path}) {
 
-    const [field, setField] = useState("empty(0)")
+    const [field, setField] = useState("(0)")
 
     if(!pointer.has(modalObj, path + '/' + ObjKey + '/' + field)) {
         pointer.set(modalObj, path + '/' + ObjKey + '/' + field, "")
@@ -704,14 +702,14 @@ function ObjectNodeEditor({modalObj, ObjKey, path}) {
 /**
  * Creates an Object that has a parent component and a child by followed
  *
- * @param modalObj
- * @param field
- * @param path
- * @param isInArray
- * @param isObject
- * @param saveType
- * @param isRoot
- * @param removeParentNode
+ * @param modalObj temp JSON Object that holds new data
+ * @param field key
+ * @param path current path
+ * @param isInArray indicates input is an Array
+ * @param isObject indicates input is in an Object
+ * @param saveType saves type
+ * @param isRoot indicates root
+ * @param removeParentNode removes a nod from parent list
  * @returns {JSX.Element}
  *
  */
@@ -772,15 +770,15 @@ function ObjectEditor({modalObj, field, path, isInArray, isObject, saveType, isR
         let biggestNum = 0
 
         Object.entries(pointer.get(modalObj, path + '/' + ObjField)).map(([key]) => {
-            if (key.search(/^empty\(\d+\)$/ ) !== -1)  {
+            if (key.search(/^\(\d+\)$/ ) !== -1)  {
 
-                if(parseInt(key.slice(6, -1)) >= biggestNum){
-                    biggestNum = parseInt(key.slice(6, -1)) + 1
+                if(parseInt(key.slice(1, -1)) >= biggestNum){
+                    biggestNum = parseInt(key.slice(1, -1)) + 1
                 }
 
             }
         })
-        pointer.set(modalObj, path + '/' + ObjField + '/' + "empty(" + biggestNum + ")",  "")
+        pointer.set(modalObj, path + '/' + ObjField + '/' + "(" + biggestNum + ")",  "")
 
         setRender(!render)
 
