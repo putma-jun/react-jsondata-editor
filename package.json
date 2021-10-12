@@ -13,7 +13,9 @@
   },
   "keywords": [
     "react json editor",
-    "json-editor"
+    "json-editor",
+    "json editor",
+    "react editor"
   ],
   "author": {
     "name": "Junhyeok Bang",
