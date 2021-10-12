@@ -3,10 +3,12 @@
     justify-content: center;
     height: 100%;
     width: 100%;
+    font-size: 1.1em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .editorContainer{
-    padding: 1em;
+    padding: 10px;
     border: 1px solid lightgray;
     border-radius: 5px;
     /*height: 100%;*/
@@ -31,23 +33,23 @@
     display: flex;
     flex-direction: column;
     line-height: 1.5em;
-    font-size: 1.1em;
 }
 
 .insertBanner{
     padding: 5px 10px;
-    background-color: #AAAAAA;
+    background-color: #9bb7d4;
+    font-size: 1.15em;
 }
 
 .bannerSpan{
-    color: white;
+    color: #f4f7fa;
     padding: 2px 5px;
     display: inline-block;
     cursor: pointer;
 }
 
 .insertBanner:hover{
-    background: #505050;
+    background: #6690bd;
     cursor: pointer;
 }
 
@@ -81,18 +83,26 @@
     right: 0;
     top: 0;
     padding: 0 1em;
-    color: rgba(0,0,0,.54);
-    background-image: linear-gradient(to right, transparent 0, #f5f5f5 0.5em);
+    color: #797980;
+    background-image: linear-gradient(to right, transparent 0, #f4f7fa 0.5em);
     font-size: 16px;
     display: none;
 }
+.rightType{
+    font-style: italic;
+    color: #6690bd;
+}
+
 
 .rightButton{
     padding-left: 5px;
 }
+.rightButton button{
+    background-color: #9BB7D4;
+}
 
 .clickNode:hover{
-    background: #f5f5f5;
+    background: #f4f7fa;
 }
 
 .clickNode:hover .rightContainer{
@@ -103,8 +113,9 @@
     display: flex;
 }
 
+
 .arrayType + span{
-    background-color: rgba(0,0,0,.08);
+    background-color: #eeeeef;
     border-radius: 2px;
     padding: 0 4px;
     text-align: center;
@@ -114,10 +125,28 @@
 .valueData{
     display: inline-block;
     margin-left: 4px;
-    color: rgba(0,0,0,.6);
+    color: #797980;
+}
+
+.nullValue{
+    display: inline-block;
+    margin-left: 4px;
+    color: #E9897E;
+}
+.numberValue{
+    display: inline-block;
+    margin-left: 4px;
+    color: #25539a;
+}
+
+.booleanValue{
+    display: inline-block;
+    margin-left: 4px;
+    color: #8e4cad;
 }
 
 .keyData:after {
+    padding-left: 5px;
     content: " : ";
 }
 
@@ -127,7 +156,7 @@
 
 .arrowDown{
     margin-right: 8px;
-    border: solid rgba(0,0,0,.54);
+    border: solid #797980;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
@@ -138,7 +167,7 @@
 
 .arrowRight{
     margin-right: 8px;
-    border: solid rgba(0,0,0,.54);
+    border: solid #797980;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
@@ -173,7 +202,7 @@
     font-size: 14px;
     min-height: 20px;
     line-height: 20px;
-    color: rgba(0,0,0,.54);
+    color: #797980;
 }
 
 .modalInput{
@@ -182,12 +211,21 @@
     max-width: 130px;
 }
 
+select.modalInput{
+    height: 30px;
+}
+.modalBooleanInput{
+    min-height: 30px;
+    font-size: 16px;
+    min-width: 130px;
+}
+
 .modalNoLabel{
-    display: block;
+    display: flex;
     padding: 20px 5px 0;
     min-height: 20px;
-
     font-weight: bolder;
+    align-items: center;
 }
 
 .modalBtnContainer{
@@ -201,13 +239,22 @@
     display: block;
 
 }
-.modalModifyBtn{
+.modalCancelButton{
     margin-left: 5px;
+    background-color: #d49bb7;
+}
+.modalUpdateButton{
+    margin-left: 5px;
+    background-color: #9BB7D4;
+}
+.modalDeleteButton{
+    background-color: #a0a2a4;
 }
 
 .delButton{
     margin-left: 10px;
     max-height: 25px;
+    background-color: #a0a2a4;
 }
 
 .arrayIndex{
@@ -215,12 +262,14 @@
     font-size: 16px;
 }
 .arrayIndexInput{
+    display: flex;
     min-height: 30px;
     border-radius: 2px;
     padding: 0 4px;
     font-size: 16px;
-    background-color: rgba(0,0,0,.08);
+    background-color: #eeeeef;
     text-align: center;
+    align-items: center;
 }
 
 .addLine{
@@ -230,7 +279,7 @@
 
 .nodeLine{
     width: 2px;
-    margin: 0 0 18px;
+    margin: -0.5em 0 18px;
     border-right-style:solid ;
     border-width: 0.15em;
     border-color: #f0f0f0;
@@ -251,6 +300,7 @@
 
 .nodePlusLineContainer button{
     margin: 8px 0;
+    background-color: #9BB7D4;
 }
 
 .listContainer{
