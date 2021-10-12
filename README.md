@@ -11,7 +11,6 @@ node.js
 ```
 $ npm i react-jsondata-editor
 ```
-(it needs json-pointer) 
 
 # Demo
 [Demo](https://json-editor-demo-pib6.vercel.app/)
@@ -21,7 +20,9 @@ $ npm i react-jsondata-editor
 input : JSON Object /
 output : JSON Object
 
-saveJSON: callback function that returns JSON Object
+saveJSON: callback function that returns
+
+JSON Object
 ```
 import {JsonEditor} from "react-jsondata-editor"
 
@@ -124,9 +125,15 @@ export default function Home() {
                     </div>
 
                     <div className={styles.output}>
-                        <JsonEditor 
-                            input={JSON.parse(jsonInput)} 
-                            saveJSON={(output)=>{currentEditObj = output}} />
+                        <JsonEditor input={ ()=>{
+                            try{
+                                return (JSON.parse(jsonInput))
+                            }catch{
+                                return "Not JSON format"
+                            }
+                        }
+
+                        } saveJSON={(input)=>{currentEditObj = input}} />
                     </div>
                 </div>
 
