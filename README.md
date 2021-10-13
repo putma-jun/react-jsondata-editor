@@ -145,3 +145,7 @@ export default function Home() {
 }
 
 ```
+
+# License
+
+[MIT](LICENSE.md)
