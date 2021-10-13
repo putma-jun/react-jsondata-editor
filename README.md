@@ -6,12 +6,12 @@
 
 A JSON editor library that displays and manipulates JSON objects
 
-# installation
-node.js
+# Installation
 
 ```
 $ npm i react-jsondata-editor
 ```
+
 (it needs json-pointer) 
 
 # Demo
@@ -144,3 +144,7 @@ export default function Home() {
 }
 
 ```
+
+# License
+
+MIT
