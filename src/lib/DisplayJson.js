@@ -73,17 +73,24 @@ export default function DisplayJson(
         )
     } else if (input === null) {
         return (
-            <div className={styles.valueData}>
+            <div className={styles.nullValue}>
                 <ValueToString input={input}/>
             </div>
         )
     } else if (typeOfInput === "boolean") {
         return (
-            <div className={styles.valueData}>
+            <div className={styles.booleanValue}>
                 <ValueToString input={input}/>
             </div>
         )
-    } else if (typeOfInput === "string" || typeOfInput === "number") {
+    } else if (typeOfInput === "number") {
+        return (
+            <div className={styles.numberValue}>
+                <ValueToString input={input === "" ? '""' : input}/>
+            </div>
+
+        )
+    }else if(typeOfInput === "string" ){
         return (
             <div className={styles.valueData}>
                 <ValueToString input={input === "" ? '""' : input}/>
@@ -196,7 +203,7 @@ function DisplayNode({
 
                     {/* shows type and edit and delete buttons on the right */}
                     <div className={styles.rightContainer}>
-                        <div>[<TypeToString input={value}/>]</div>
+                        <div className={styles.rightType}><TypeToString input={value}/></div>
                         <div className={styles.rightButton}>
                             <button type={"button"} onClick={() => {
                                 setOverlay();

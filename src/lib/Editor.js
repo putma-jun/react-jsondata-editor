@@ -48,6 +48,11 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
         saveJSON(jsonData)
     }, [jsonData])
 
+    // re render
+    useEffect(()=>{
+        setJsonData(input === undefined ? {} : input)
+    }, [input])
+
 
     function deepCopy(input) {
         return JSON.parse(JSON.stringify(input))

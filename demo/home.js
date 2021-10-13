@@ -62,7 +62,15 @@ export default function Home() {
                     </div>
 
                     <div className={styles.output}>
-                        <JsonEditor input={JSON.parse(jsonInput)} saveJSON={(input)=>{currentEditObj = input}} />
+                        <JsonEditor input={ ()=>{
+                            try{
+                                return (JSON.parse(jsonInput))
+                            }catch{
+                                return "Not JSON format"
+                            }
+                        }
+
+                        } saveJSON={(input)=>{currentEditObj = input}} />
                     </div>
                 </div>
 

@@ -1,6 +1,6 @@
 {
   "name": "react-jsondata-editor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A JSON editor library that displays and manipulates JSON objects",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -8,12 +8,14 @@
     "build": "rollup -c",
     "demo:build": "parcel build demo/index.html",
     "demo:start": "parcel demo/index.html",
-    "clean": "rimraf dist && rimraf .parcel-cache && rimraf lib",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "clean": "rimraf dist && rimraf .parcel-cache && rimraf lib"
   },
   "keywords": [
     "react json editor",
-    "json-editor"
+    "json-editor",
+    "json editor",
+    "react editor"
   ],
   "author": {
     "name": "Junhyeok Bang",
@@ -44,5 +46,8 @@
     "rollup": "^2.58.0",
     "rollup-plugin-postcss": "^4.0.1",
     "rollup-plugin-uglify": "^6.0.4"
+  },
+  "dependencies": {
+    "jest": "^27.2.5"
   }
 }

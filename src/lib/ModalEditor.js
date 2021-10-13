@@ -74,11 +74,11 @@ export default function ModalEditor({editValue, hideModal, jsonPath, deleteNode,
 
                 <div className={styles.modalBtnContainer}>
                     {(isValueArray || isValueObject) ? <div/> :
-                    <button type={"button"} onClick={removeObj}> delete </button> }
+                    <button type={"button"} className={styles.modalDeleteButton} onClick={removeObj}> delete </button> }
 
                     <div className={styles.modalModifyBtnContainer}>
-                        <button type={"button"} className={styles.modalModifyBtn} onClick={cancelNode}> Cancel</button>
-                        <button type={"submit"} className={styles.modalModifyBtn} > Update</button>
+                        <button type={"button"} className={styles.modalCancelButton} onClick={cancelNode}> Cancel</button>
+                        <button type={"submit"} className={styles.modalUpdateButton} > Update</button>
                     </div>
                 </div>
             </form>
@@ -299,7 +299,7 @@ function BooleanEditor({modalObj, field, path, isInArray, isArray, isObject, isR
             </div>
             <div className={styles.modalInputContainer}>
                 <label className={styles.modalLabel}>Value</label>
-                <select className={styles.modalInput} value={inputValue} onChange={(e)=>{setInputValue(e.target.value === "true")}}>
+                <select className={styles.modalBooleanInput} value={inputValue} onChange={(e)=>{setInputValue(e.target.value === "true")}}>
                     <option value={true}>true</option>
                     <option value={false}>false</option>
                 </select>
@@ -338,17 +338,10 @@ function NumberEditor({modalObj, field, path, isInArray, isArray, isObject, isRo
 
 
     useEffect(()=>{
-        const numberValue = Number(pointer.get(modalObj, path + '/' + field))
 
-        if(!Number.isNaN(numberValue)) {
-            setInputValue(pointer.get(modalObj, path + '/' + field))
-            pointer.set(modalObj, path + '/' + inputField, numberValue)
-        }
-        else{
-            setInputValue(0)
-            pointer.set(modalObj, path + '/' + inputField, 0)
-        }
-
+        const numberValue = typeof pointer.get(modalObj, path + '/' + field) === "number" ? pointer.get(modalObj, path + '/' + field) : 0
+        setInputValue(numberValue)
+        pointer.set(modalObj, path + '/' + inputField, numberValue)
 
     }, [render])
 
