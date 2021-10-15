@@ -4,31 +4,39 @@
 <a href="https://www.npmjs.com/package/json-pointer"> <img alt="npm peer dependency version" src="https://img.shields.io/npm/dependency-version/react-jsondata-editor/peer/json-pointer"></a>
 <a href="https://app.travis-ci.com/putma-jun/react-jsondata-editor"><img src="https://app.travis-ci.com/putma-jun/react-jsondata-editor.svg" alt="Build Status" /></a>
 
-A JSON editor library that displays and manipulates JSON objects
+
+A JSON editor react library that displays and manipulates JSON objects. 
+It gets height and width from a parent's component frame size and fits the frame size. 
+It supports string, number, null, boolean, object, and array types.
 
 # installation
-node.js
 
 ```
 $ npm i react-jsondata-editor
 ```
 
 # Demo
-[Demo](https://json-editor-demo-pib6.vercel.app/)
+- Simple demo ->
+  [Demo](https://json-editor-demo-pib6.vercel.app/demo)
+- Text area and JSON editor ->
+  [Demo](https://json-editor-demo-pib6.vercel.app/)
+
 
 # usage
 
-input : JSON Object /
-output : JSON Object
-
-saveJSON: callback function that returns
-
-JSON Object
 ```
 import {JsonEditor} from "react-jsondata-editor"
 
-<JsonEditor input={jsonObject} saveJSON={(output)=> {console.log(output)}} />
+<JsonEditor jsonInput={jsonObject} onChange={(output)=> {console.log(output)}} />
 ```
+
+# props
+
+| Prop                   | Type             | Description                                                                                                                                                                                                                                                          |
+| ---------------------- | ---------------- | -------------------------------------|
+| jsonInput              | JSON Object      | A user input JSON Object for editing |
+| onChange               | callback function| Returns a JSON Object                |
+| output                 | JSON Object      | The changed Json object after editing|
 
 # Simple
 ```javascript
@@ -58,7 +66,7 @@ export default function demo() {
 
     return (
         <div style={{ height : "500px",  width: "500px"}}>
-            <JsonEditor input={input} saveJSON={(output)=>{console.log(output)}}/>
+            <JsonEditor jsonInput={input} onChange={(output)=>{console.log(output)}}/>
         </div>
     )
 }
@@ -126,7 +134,7 @@ export default function Home() {
                     </div>
 
                     <div className={styles.output}>
-                        <JsonEditor input={ ()=>{
+                        <JsonEditor jsonInput={ ()=>{
                             try{
                                 return (JSON.parse(jsonInput))
                             }catch{
@@ -134,7 +142,7 @@ export default function Home() {
                             }
                         }
 
-                        } saveJSON={(input)=>{currentEditObj = input}} />
+                        } onChange={(input)=>{currentEditObj = input}} />
                     </div>
                 </div>
 

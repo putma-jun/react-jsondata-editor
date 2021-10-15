@@ -1,6 +1,6 @@
 {
   "name": "react-jsondata-editor",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "description": "A JSON editor library that displays and manipulates JSON objects",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -38,6 +38,8 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.0",
     "@rollup/plugin-node-resolve": "^13.0.5",
+    "babel-jest": "^27.2.5",
+    "jest": "^27.2.5",
     "json-pointer": "^0.6.1",
     "parcel": "^2.0.0-rc.0",
     "postcss": "^8.3.9",
@@ -48,6 +50,13 @@
     "rollup-plugin-uglify": "^6.0.4"
   },
   "dependencies": {
-    "jest": "^27.2.5"
+    "react-test-renderer": "^17.0.2"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/test/cssTransform.js"
+    }
   }
 }

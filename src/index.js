@@ -6,18 +6,18 @@ import styles from "./lib/styles.module.css"
  * Gets a JSON object and a callback function and calls Editor component
  * Creates a current reference and passes to Editor component
  *
- * @param input a JSON Object from a user
- * @param saveJSON a callback function that returns JSON Object
+ * @param jsonInput a JSON Object from a user
+ * @param onChange a callback function that returns JSON Object
  * @returns {JSX.Element}
  *
  */
-function JsonEditor({input, saveJSON}) {
+function JsonEditor({jsonInput, onChange}) {
 
     const jsonBoxRef = useRef()
 
     return (
         <div className={styles.container} ref={jsonBoxRef}>
-            <Editor input={input} jsonBoxRef={jsonBoxRef} saveJSON={saveJSON}/>
+            <Editor input={jsonInput} jsonBoxRef={jsonBoxRef} saveJSON={onChange}/>
         </div>
     )
 }

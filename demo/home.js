@@ -62,7 +62,7 @@ export default function Home() {
                     </div>
 
                     <div className={styles.output}>
-                        <JsonEditor input={ ()=>{
+                        <JsonEditor jsonInput={ ()=>{
                             try{
                                 return (JSON.parse(jsonInput))
                             }catch{
@@ -70,7 +70,7 @@ export default function Home() {
                             }
                         }
 
-                        } saveJSON={(input)=>{currentEditObj = input}} />
+                        } onChange={(input)=>{currentEditObj = input}} />
                     </div>
                 </div>
 

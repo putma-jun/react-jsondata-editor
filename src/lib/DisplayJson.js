@@ -186,16 +186,19 @@ function DisplayNode({
     return (
         <div className={styles.dataContainer}>
             <div className={styles.dataNode} ref={inputRef}>
-                <div className={styles.clickNode}>
+                <div className={styles.clickNode} onClick={()=>{
+                    if(isList) {
+                        setShowContent(!showContent)
+                    }else{
+                        setOverlay()
+                        createEditModal(isList ? jsonPath + '/' + field : jsonPath, value, field, TypeOfValue(value), isInArray, isValueArray, isValueObject, inputRef)
+                    }
+                }}>
                     <div className={styles.keyData} style={{paddingLeft: indent + "em"}}>
-                        {
-                            isList &&
-                            <div style={{display: "inline-block"}}>
-                                <i className={showContent ? styles.arrowDown : styles.arrowRight} onClick={() => {
-                                    setShowContent(!showContent)
-                                }}/>
-                            </div>
-                        }
+
+                        <div style={isList ? {display : "inline-block"} :  { visibility : "hidden"  } }>
+                            <i className={showContent ? styles.arrowDown : styles.arrowRight} />
+                        </div>
 
                         {isInArray && <div className={styles.arrayType}/>}
                         <span>{field}</span>

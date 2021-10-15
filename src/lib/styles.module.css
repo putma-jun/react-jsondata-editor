@@ -76,6 +76,7 @@
 .clickNode{
     display: flex;
     padding: 0 0.5em;
+    cursor : pointer;
 }
 
 .rightContainer{
@@ -182,15 +183,17 @@
     border: 1px solid lightgray;
     border-radius: 6px;
     background-color: white;
-    padding: 0.5em;
+    padding: 15px 5px 10px 15px;
     position : absolute;
     z-index: 3;
+    min-width: 425px;
+
 }
 
 .modalContentContainer {
     display: flex;
     margin-bottom: 0.5em;
-    min-width: 200px;
+    min-width: 250px;
 }
 
 .modalInputContainer{
@@ -208,7 +211,7 @@
 .modalInput{
     min-height: 30px;
     font-size: 16px;
-    max-width: 130px;
+    max-width: 140px;
 }
 
 select.modalInput{
@@ -217,7 +220,7 @@ select.modalInput{
 .modalBooleanInput{
     min-height: 30px;
     font-size: 16px;
-    min-width: 130px;
+    min-width: 140px;
 }
 
 .modalNoLabel{
@@ -232,7 +235,7 @@ select.modalInput{
     align-items: center;
     justify-content: space-between;
     display: flex;
-    padding: 0.5em;
+    padding: 20px 20px 10px 10px ;
 }
 
 .modalModifyBtnContainer{
