@@ -4,4 +4,7 @@
 /demo-dist
 /.parcel-cache
 /dist
+/test/__snapshots__
+
+
 
