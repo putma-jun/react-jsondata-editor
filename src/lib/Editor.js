@@ -45,7 +45,12 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
 
     // after change the json object, it calls a callback function to return new json object
     useEffect(() => {
-        saveJSON(jsonData)
+        if(Object.keys(jsonData).length === 0 || JSON.stringify(jsonData) === '{}'){
+            saveJSON(undefined)
+        }else{
+            saveJSON(jsonData)
+        }
+
     }, [jsonData])
 
     // re render
@@ -63,7 +68,7 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
 
         if (path === "") {
             tempObj = ""
-            setJsonData("")
+            setJsonData({})
         } else {
             pointer.remove(tempObj, path)
             setJsonData(deepCopy(tempObj))
