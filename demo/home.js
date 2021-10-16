@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {JsonEditor} from "../src/index";
 import * as styles from './Index.module.css';
+
 /**
  *
  * Gets an input from a user and displays the input
@@ -12,22 +13,23 @@ import * as styles from './Index.module.css';
 
 export default function Home() {
     let input =
-        {"example": {
-                    "id": "json",
-                    "age": 99,
-                    "working": true,
-                    "problem": null,
-                    "more info": {
-                        "car": {
-                            "brand": "a-brand",
-                            "year": 2020,
-                            "owners": [
-                                "father",
-                                "brother"
-                            ]
-                        }
+        {
+            "example": {
+                "id": "json",
+                "age": 99,
+                "working": true,
+                "problem": null,
+                "more info": {
+                    "car": {
+                        "brand": "a-brand",
+                        "year": 2020,
+                        "owners": [
+                            "father",
+                            "brother"
+                        ]
                     }
                 }
+            }
         }
 
 
@@ -39,8 +41,22 @@ export default function Home() {
         setJsonInput(e.target.value)
     }
 
-    function saveJsonString(){
-        setJsonInput(JSON.stringify(currentEditObj, null, ' '))
+    function ToJson(input){
+        try {
+            return JSON.parse(input)
+        } catch {
+            return undefined
+        }
+
+    }
+
+    function saveJsonString() {
+
+        if(currentEditObj === undefined){
+            setJsonInput('')
+        }else{
+            setJsonInput(JSON.stringify(currentEditObj, null, ' '))
+        }
     }
 
     return (
@@ -56,21 +72,16 @@ export default function Home() {
                     </div>
 
                     <div className={styles.middleContainer}>
-                        <div style={{textAlign:"center"}}>
-                            <button type={"button"} onClick={saveJsonString}><span><i className={styles.arrowLeft}/> String</span></button>
+                        <div style={{textAlign: "center"}}>
+                            <button type={"button"} onClick={saveJsonString}><span><i className={styles.arrowLeft}/> String</span>
+                            </button>
                         </div>
                     </div>
 
                     <div className={styles.output}>
-                        <JsonEditor jsonInput={ ()=>{
-                            try{
-                                return (JSON.parse(jsonInput))
-                            }catch{
-                                return "Not JSON format"
-                            }
-                        }
-
-                        } onChange={(input)=>{currentEditObj = input}} />
+                        <JsonEditor jsonObject={ ToJson(jsonInput) } onChange={(output) => {
+                            currentEditObj = output
+                        }}/>
                     </div>
                 </div>
 

@@ -44,10 +44,10 @@ export default function DisplayJson(
     if (input === undefined) {
         return (
             <div className={styles.valueData}>
-                <div key={"undefined"}>Not JSON Format</div>
+                <div key={"undefined"}>It is not JSON Format</div>
             </div>
         )
-    } else if (needLeaf && (typeOfInput !== "object" || input === null)) {
+    }else if (needLeaf && (typeOfInput !== "object" || input === null)) {
         return (
             <div key={indent} className={styles.dataContainer}>
                 <div className={styles.dataNode}>
@@ -56,8 +56,8 @@ export default function DisplayJson(
                         <DisplayJson jsonPath={jsonPath} input={input} indent={indent} needLeaf={false}/>
 
                         <div className={styles.rightContainer}>
-                            <TypeToString input={input}/>
-                            <div>
+                            <div className={styles.rightType}><TypeToString input={input}/></div>
+                            <div className={styles.rightButton}>
                                 <button type={"button"} onClick={() => {
                                     deleteNode(jsonPath)
                                 }}> delete
@@ -71,7 +71,13 @@ export default function DisplayJson(
             </div>
 
         )
-    } else if (input === null) {
+    } else if(needLeaf && Object.keys(input).length === 0){
+        return(
+            <div className={styles.nodeEmpty}>
+                It doesn't have any data
+            </div>
+        )
+    }else if (input === null) {
         return (
             <div className={styles.nullValue}>
                 <ValueToString input={input}/>
@@ -97,8 +103,7 @@ export default function DisplayJson(
             </div>
 
         )
-    } else if (JSON.stringify(input) === "{}" || JSON.stringify(input) === "[]") {
-
+    } else if (Object.keys(input).length === 0){
         return (
             <div key={indent} className={styles.dataContainer}>
                 <div className={styles.dataNode}>
@@ -108,9 +113,8 @@ export default function DisplayJson(
                             <span>{JSON.stringify(input)}</span>
                         </div>
                         <div className={styles.rightContainer}>
-                            <TypeToString input={input}/>
-
-                            <div>
+                            <div className={styles.rightType}><TypeToString input={input}/></div>
+                            <div className={styles.rightButton}>
                                 <button type={"button"} onClick={() => {
                                     deleteNode(jsonPath)
                                 }}> delete
@@ -186,7 +190,9 @@ function DisplayNode({
     return (
         <div className={styles.dataContainer}>
             <div className={styles.dataNode} ref={inputRef}>
-                <div className={styles.clickNode} onClick={()=>{
+                <div className={styles.clickNode} onClick={(e)=>{
+                    e.stopPropagation()
+                    e.preventDefault()
                     if(isList) {
                         setShowContent(!showContent)
                     }else{
@@ -208,7 +214,9 @@ function DisplayNode({
                     <div className={styles.rightContainer}>
                         <div className={styles.rightType}><TypeToString input={value}/></div>
                         <div className={styles.rightButton}>
-                            <button type={"button"} onClick={() => {
+                            <button type={"button"} onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
                                 setOverlay();
                                 createEditModal(isList ? jsonPath + '/' + field : jsonPath, value, field, TypeOfValue(value), isInArray, isValueArray, isValueObject, inputRef);
                             }}>
@@ -216,7 +224,9 @@ function DisplayNode({
                             </button>
                         </div>
                         <div className={styles.rightButton}>
-                            <button type={"button"} onClick={() => {
+                            <button type={"button"} onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
                                 deleteNode(jsonPath + '/' + field)
                             }}> delete
                             </button>

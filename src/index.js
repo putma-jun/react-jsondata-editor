@@ -11,13 +11,13 @@ import styles from "./lib/styles.module.css"
  * @returns {JSX.Element}
  *
  */
-function JsonEditor({jsonInput, onChange}) {
+function JsonEditor({jsonObject, onChange}) {
 
     const jsonBoxRef = useRef()
 
     return (
         <div className={styles.container} ref={jsonBoxRef}>
-            <Editor input={jsonInput} jsonBoxRef={jsonBoxRef} saveJSON={onChange}/>
+            <Editor input={jsonObject} jsonBoxRef={jsonBoxRef} saveJSON={onChange}/>
         </div>
     )
 }
