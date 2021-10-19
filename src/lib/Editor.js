@@ -45,7 +45,7 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
 
     // after change the json object, it calls a callback function to return new json object
     useEffect(() => {
-        if(Object.keys(jsonData).length === 0 || JSON.stringify(jsonData) === '{}'){
+        if(jsonData !== null && (Object.keys(jsonData).length === 0 || JSON.stringify(jsonData) === '{}')){
             saveJSON(undefined)
         }else{
             saveJSON(jsonData)
@@ -60,7 +60,12 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
 
 
     function deepCopy(input) {
-        return JSON.parse(JSON.stringify(input))
+
+        if (input === null){
+            return null
+        }else{
+            return JSON.parse(JSON.stringify(input))
+        }
     }
 
     // delete json object
