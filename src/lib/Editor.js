@@ -39,29 +39,26 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
     // shows modal editor when a user clicks "add" or "edit" button on right container
     const [editObject, setEditObject] = useState(emptyEditObject)
     // new json object to manipulate
-    const [jsonData, setJsonData] = useState(input === undefined ? {} : input)
+    const [jsonData, setJsonData] = useState(input)
 
     let tempObj = deepCopy(jsonData)
 
     // after change the json object, it calls a callback function to return new json object
     useEffect(() => {
-        if(jsonData !== null && (Object.keys(jsonData).length === 0 || JSON.stringify(jsonData) === '{}')){
-            saveJSON(undefined)
-        }else{
-            saveJSON(jsonData)
-        }
-
+        saveJSON(jsonData)
     }, [jsonData])
 
     // re render
     useEffect(()=>{
-        setJsonData(input === undefined ? {} : input)
+        setJsonData(input)
     }, [input])
 
 
     function deepCopy(input) {
 
-        if (input === null){
+        if(input === undefined){
+            return undefined
+        }else if (input === null){
             return null
         }else{
             return JSON.parse(JSON.stringify(input))
@@ -73,7 +70,7 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
 
         if (path === "") {
             tempObj = ""
-            setJsonData({})
+            setJsonData(undefined)
         } else {
             pointer.remove(tempObj, path)
             setJsonData(deepCopy(tempObj))
@@ -87,15 +84,29 @@ export default function Editor({input, jsonBoxRef, saveJSON}) {
             tempObj = value
             setJsonData(deepCopy(tempObj))
         } else {
-            if (path === '/') {
-                if (!(jsonData instanceof Object)) {
-                    tempObj = {}
+            if(path === ''){
+                tempObj = value
+                setJsonData(deepCopy(tempObj))
+            }
+            else if (path === '/') {
+                if(jsonData instanceof Array){
+
+                    let arrayIndex = pointer.get(jsonData, '').length
+
+                    Object.entries(value).map(([key, value]) => {
+                        pointer.set(tempObj, '/' + arrayIndex + '/' + key, value)
+                    })
                 }
+                else{
+                    if (!(jsonData instanceof Object)) {
+                        tempObj = {}
+                    }
 
-                Object.entries(value).map(([key, value]) => {
-                    pointer.set(tempObj, '/' + key, value)
-                })
+                    Object.entries(value).map(([key, value]) => {
+                        pointer.set(tempObj, '/' + key, value)
+                    })
 
+                }
             } else {
                 pointer.set(tempObj, path, value)
             }

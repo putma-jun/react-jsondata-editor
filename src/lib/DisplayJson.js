@@ -33,7 +33,7 @@ export default function DisplayJson(
         jsonListOutput
     }) {
 
-    const typeOfInput = typeof input
+    const typeOfInput = TypeOfValue(input)
     let indexForKey = 0
 
     // saves information with current position node of for modal editor when a user clicks add or edit button
@@ -41,20 +41,39 @@ export default function DisplayJson(
         createModal(jsonPath, value, field, type, isInArray, isValueArray, isValueObject, inputRef.current.offsetTop + inputRef.current.clientHeight - jsonListOutput.current.scrollTop)
     }
 
+    // modifies data when input is null, boolean, number and string
+    function changePrimitive(e){
+
+        let tempValue
+
+        if(e.target.innerText === "null"){
+            tempValue = null
+        }else if(e.target.innerText === "true" || e.target.innerText === "false"){
+            tempValue = e.target.innerText === "true"
+        }else if(!Number.isNaN(Number(e.target.innerText))){
+            tempValue = Number(e.target.innerText)
+        }else{
+            tempValue = e.target.innerText
+        }
+        changeNode('', tempValue)
+    }
+
     if (input === undefined) {
         return (
-            <div className={styles.valueData}>
-                <div key={"undefined"}>It is not JSON Format</div>
+            <div className={styles.nodeEmpty}>
+                It doesn't have any data
             </div>
         )
-    }else if (needLeaf && (typeOfInput !== "object" || input === null)) {
+    }else if (needLeaf && ((typeOfInput !== "object" && typeOfInput !== "array") || input === null )) {
         return (
             <div key={indent} className={styles.dataContainer}>
                 <div className={styles.dataNode}>
-                    <div className={styles.clickNode}>
-                        <div style={{paddingLeft: indent + "em"}}/>
-                        <DisplayJson jsonPath={jsonPath} input={input} indent={indent} needLeaf={false}/>
-
+                    <div className={styles.needLeaf}>
+                        <div className={styles.primitive} contentEditable={true} suppressContentEditableWarning={true} onBlur={(e)=>{
+                            changePrimitive(e)
+                        }}>
+                            <DisplayJson jsonPath={jsonPath} input={input} indent={indent} needLeaf={false}/>
+                        </div>
                         <div className={styles.rightContainer}>
                             <div className={styles.rightType}><TypeToString input={input}/></div>
                             <div className={styles.rightButton}>
@@ -71,13 +90,7 @@ export default function DisplayJson(
             </div>
 
         )
-    } else if(needLeaf && Object.keys(input).length === 0){
-        return(
-            <div className={styles.nodeEmpty}>
-                It doesn't have any data
-            </div>
-        )
-    }else if (input === null) {
+    } else if (input === null) {
         return (
             <div className={styles.nullValue}>
                 <ValueToString input={input}/>
@@ -107,7 +120,7 @@ export default function DisplayJson(
         return (
             <div key={indent} className={styles.dataContainer}>
                 <div className={styles.dataNode}>
-                    <div className={styles.clickNode}>
+                    <div className={styles.emptyObject}  >
                         <div style={{paddingLeft: indent + "em"}}/>
                         <div className={styles.valueData}>
                             <span>{JSON.stringify(input)}</span>
@@ -120,7 +133,6 @@ export default function DisplayJson(
                                 }}> delete
                                 </button>
                             </div>
-
                         </div>
                     </div>
                 </div>
