@@ -28,7 +28,7 @@ $ npm i react-jsondata-editor
 ```
 import {JsonEditor} from "react-jsondata-editor"
 
-<JsonEditor jsonInput={jsonObject} onChange={(output)=> {console.log(output)}} />
+<JsonEditor jsonObject={input} onChange={(output)=> {console.log(output)}} />
 ```
 
 # Props

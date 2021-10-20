@@ -72,7 +72,6 @@
 .dataContainer{
     display: block;
     width: 100%;
-
 }
 
 .dataNode{
@@ -84,6 +83,16 @@
     display: flex;
     padding: 0 0.5em;
     cursor : pointer;
+}
+
+.needLeaf{
+    display: flex;
+    padding-left: 0.5em;
+}
+
+.primitive{
+    display: flex;
+    padding: 0 10px 0 6px;
 }
 
 .rightContainer{
@@ -101,26 +110,36 @@
     color: #6690bd;
 }
 
-
 .rightButton{
     padding-left: 5px;
 }
+
 .rightButton button{
     background-color: #9BB7D4;
 }
 
-.clickNode:hover{
+.clickNode:hover, .needLeaf:hover{
     background: #f4f7fa;
 }
 
-.clickNode:hover .rightContainer{
+.needLeaf:hover .primitive{
+    border: 1px solid ;
+    border-radius: 3px;
+}
+
+.clickNode:hover .rightContainer, .needLeaf:hover .rightContainer{
     display: flex;
+}
+
+.emptyObject{
+    display: flex;
+    padding: 0 0.5em;
 }
 
 .keyData{
     display: flex;
+    word-break: break-all;
 }
-
 
 .arrayType + span{
     background-color: #eeeeef;
@@ -134,6 +153,7 @@
     display: inline-block;
     margin-left: 4px;
     color: #797980;
+    word-break: break-all;
 }
 
 .nullValue{
