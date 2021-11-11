@@ -5,9 +5,11 @@
 <a href="https://app.travis-ci.com/putma-jun/react-jsondata-editor"><img src="https://app.travis-ci.com/putma-jun/react-jsondata-editor.svg" alt="Build Status" /></a>
 
 
-A JSON editor react library that displays and manipulates JSON objects. 
+A JSON editor react library that displays and manipulates JSON String(object). 
 It gets height and width from a parent's component frame size and fits the size. 
 It supports string, number, null, boolean, object, and array types.
+
+It was built by rollup and has 'cjs' and 'esm' two versions. The cjs version is around 48 KB and the esm version is around 43 KB. 
 
 
 # Installation
@@ -35,8 +37,13 @@ import {JsonEditor} from "react-jsondata-editor"
 
 | Prop                   | Type             | Description                                                                                                                                                                                                                                                          |
 | ---------------------- | ---------------- | -------------------------------------|
-| jsonObject             | JSON Object      | The initial value of an input json object, it will be displayed on the view. The editor re-renders when the input of a Json object has been changed. It does not change the original input. 
-| onChange               | callback function| It returns a JSON Object(output) when the view of a Json object has been changed. It returns "undefined" when it has no data. 
+| jsonObject             | JSON String      | The initial value of a json String, it will be displayed on the view. The editor re-renders when the input of a Json string has been changed. It does not change the original input. 
+| onChange               | callback function| It returns a stringify(JSON Object[output]) when the view of a Json object has been changed. It returns "undefined" when it has no data.
+| theme                  | Object (optional)| Custom user theme(color and hoverColor). Example - themes: { color : '#9bb7d4', hoverColor : '#f4f7fa'}
+| bannerStyle            | Object (optional)| Custom user banner style(hoverColor, fontColor and fontFamily). Example - banner: { hoverColor: '#6690bd', fontColor : 'white', fontFamily: 'Arial, Helvetica, sans-serif'}
+| keyStyle               | Object (optional)| Custom user key style(color and fontFamily). Example - key : { color : 'black', fontFamily: 'Arial, Helvetica, sans-serif' }
+| valueStyle             | Object (optional)| Custom user value style(fontFamily, nullColor, booleanColor, numberColor and stringColor). Example - values : { fontFamily: 'Arial, Helvetica, sans-serif', null : '#E9897E', boolean: '#8e4cad', number: '#25539a', string: '#797980' }
+| buttonStyle            | Object (optional)| Custom user button style(add/edit, delete, update and cancel). Example - buttons: { add: '#9bb7d4', delete: '#a0a2a4', update: '#9BB7D4', cancel: '#d49bb7'}
 
 
 # Simple

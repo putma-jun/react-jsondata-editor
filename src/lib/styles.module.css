@@ -1,22 +1,12 @@
+button{
+    cursor: pointer;
+}
 .container{
-    display: flex;
-    justify-content: center;
     height: 100%;
     width: 100%;
-    font-size: 1.1em;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .editorContainer{
-    padding: 10px;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    /*height: 100%;*/
-    width: 100%;
-}
-
-.boxContainer{
-    border: 1px solid rgba(0,0,0,.2);
     height: 100%;
     width: 100%;
 }
@@ -28,34 +18,29 @@
     background-color: rgba(255,255,255,.2);
 }
 
-.output{
+.JsonViewOutput{
     height: 100%;
-    display: flex;
-    flex-direction: column;
     line-height: 1.5em;
 }
 
 .insertBanner{
     padding: 5px 10px;
-    background-color: #9bb7d4;
-    font-size: 1.15em;
+    line-height: 30px;
+    font-size: 20px;
 }
 
 .bannerSpan{
-    color: #f4f7fa;
     padding: 2px 5px;
     display: inline-block;
-    cursor: pointer;
 }
 
 .insertBanner:hover{
-    background: #6690bd;
     cursor: pointer;
 }
 
 .jsonListOutput{
     overflow-y: auto;
-    height: 100%;
+    height: calc(100% - 44px);
 }
 
 .nodeEmpty{
@@ -63,14 +48,12 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    color: #797980;
 }
 .indent{
     padding-left: 0.5em;
 }
 
 .dataContainer{
-    display: block;
     width: 100%;
 }
 
@@ -90,45 +73,20 @@
     padding-left: 0.5em;
 }
 
-.primitive{
-    display: flex;
-    padding: 0 10px 0 6px;
+.dataNode .needLeaf:hover{
+    cursor: pointer;
 }
 
 .rightContainer{
+    display: flex;
     position: absolute;
     right: 0;
-    top: 0;
     padding: 0 1em;
-    color: #797980;
-    background-image: linear-gradient(to right, transparent 0, #f4f7fa 0.5em);
     font-size: 16px;
-    display: none;
-}
-.rightType{
-    font-style: italic;
-    color: #6690bd;
 }
 
 .rightButton{
     padding-left: 5px;
-}
-
-.rightButton button{
-    background-color: #9BB7D4;
-}
-
-.clickNode:hover, .needLeaf:hover{
-    background: #f4f7fa;
-}
-
-.needLeaf:hover .primitive{
-    border: 1px solid ;
-    border-radius: 3px;
-}
-
-.clickNode:hover .rightContainer, .needLeaf:hover .rightContainer{
-    display: flex;
 }
 
 .emptyObject{
@@ -144,7 +102,7 @@
 .arrayType + span{
     background-color: #eeeeef;
     border-radius: 2px;
-    padding: 0 4px;
+    padding: 0 6px;
     text-align: center;
     max-height: 26px;
 }
@@ -152,25 +110,7 @@
 .valueData{
     display: inline-block;
     margin-left: 4px;
-    color: #797980;
     word-break: break-all;
-}
-
-.nullValue{
-    display: inline-block;
-    margin-left: 4px;
-    color: #E9897E;
-}
-.numberValue{
-    display: inline-block;
-    margin-left: 4px;
-    color: #25539a;
-}
-
-.booleanValue{
-    display: inline-block;
-    margin-left: 4px;
-    color: #8e4cad;
 }
 
 .keyData:after {
@@ -184,7 +124,7 @@
 
 .arrowDown{
     margin-right: 8px;
-    border: solid #797980;
+    border: solid #787878;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
@@ -195,7 +135,7 @@
 
 .arrowRight{
     margin-right: 8px;
-    border: solid #797980;
+    border: solid #787878;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
@@ -223,9 +163,6 @@
     min-width: 250px;
 }
 
-.modalInputContainer{
-    display: block;
-}
 
 .modalLabel{
     display: block;
@@ -235,10 +172,37 @@
     color: #797980;
 }
 
+.modalSelectLabel{
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    min-height: 20px;
+    line-height: 20px;
+    margin-top: 10px;
+    color: #797980;
+}
+
+.modalSelectBtnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px 10px 10px ;
+}
+
+.modalSelectBtn{
+    margin: 0 10px;
+    padding: 3px 30px;
+}
 .modalInput{
     min-height: 30px;
     font-size: 16px;
     max-width: 140px;
+}
+
+.primitiveInput{
+    min-height: 30px;
+    font-size: 16px;
+    width: 385px;
 }
 
 select.modalInput{
@@ -269,22 +233,77 @@ select.modalInput{
     display: block;
 
 }
-.modalCancelButton{
+.modalButton{
     margin-left: 5px;
-    background-color: #d49bb7;
-}
-.modalUpdateButton{
-    margin-left: 5px;
-    background-color: #9BB7D4;
-}
-.modalDeleteButton{
-    background-color: #a0a2a4;
 }
 
 .delButton{
-    margin-left: 10px;
-    max-height: 25px;
-    background-color: #a0a2a4;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.addButton{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.removeIcon {
+    color: #787878;
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(1);
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    border-radius: 22px
+}
+
+.removeIcon::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 5px;
+    top: 8px;
+    left: 4px
+}
+
+.addIcon {
+    color: #787878;
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    transform: scale(1);
+    border-radius: 22px
+}
+
+.addIcon::after,
+.addIcon::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 5px;
+    top: 8px;
+    left: 4px
+}
+
+.addIcon::after {
+    width: 2px;
+    height: 10px;
+    top: 4px;
+    left: 8px
 }
 
 .arrayIndex{
@@ -295,7 +314,7 @@ select.modalInput{
     display: flex;
     min-height: 30px;
     border-radius: 2px;
-    padding: 0 4px;
+    padding: 0 6px;
     font-size: 16px;
     background-color: #eeeeef;
     text-align: center;
@@ -328,11 +347,6 @@ select.modalInput{
     width: 16px;
 }
 
-.nodePlusLineContainer button{
-    margin: 8px 0;
-    background-color: #9BB7D4;
-}
-
 .listContainer{
     display: flex;
 }
@@ -344,4 +358,15 @@ select.modalInput{
     border-bottom-style: solid;
     border-width: 0.15em;
     border-color: #f0f0f0;
+}
+
+.warning{
+    display: flex;
+    padding-left: 5px;
+}
+.warning span{
+    display: flex;
+    align-items: center;
+    color: rgba(255,0,0, 0.8);
+    font-style: italic;
 }
