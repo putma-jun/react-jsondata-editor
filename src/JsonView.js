@@ -49,7 +49,7 @@ export default function JsonView(
 
     if (input === undefined) {
         return (
-            <div className={styles.nodeEmpty} style={{color: userStyle.values.string, fontFamily: userStyle.values.fontFamily}}>
+            <div className={styles.nodeEmpty} style={{color: userStyle.values.string, font: userStyle.values.font}}>
                 It doesn't have any data
             </div>
         )
@@ -67,12 +67,11 @@ export default function JsonView(
                             <div style={{
                                 fontStyle: "italic",
                                 color: userStyle.themes.color,
-                                fontFamily: userStyle.values.fontFamily
+                                font: userStyle.values.font
                             }}><TypeToString input={input}/></div>
                             <div className={styles.rightButton}>
                                 <button style={{
                                     backgroundColor: userStyle.buttons.delete,
-                                    fontFamily: userStyle.values.fontFamily
                                 }} type={"button"} onClick={() => {
                                     deleteNode(jsonPath)
                                 }}> delete
@@ -88,26 +87,26 @@ export default function JsonView(
         )
     } else if (typeOfInput === "null") {
         return (
-            <div className={styles.valueData} style={{color: userStyle.values.null, fontFamily: userStyle.values.fontFamily}}>
+            <div className={styles.valueData} style={{color: userStyle.values.null, font: userStyle.values.font}}>
                 <ValueToString input={input}/>
             </div>
         )
     } else if (typeOfInput === "boolean") {
         return (
-            <div className={styles.valueData} style={{color: userStyle.values.boolean, fontFamily: userStyle.values.fontFamily}}>
+            <div className={styles.valueData} style={{color: userStyle.values.boolean, font: userStyle.values.font}}>
                 <ValueToString input={input}/>
             </div>
         )
     } else if (typeOfInput === "number") {
         return (
-            <div className={styles.valueData} style={{color: userStyle.values.number, fontFamily: userStyle.values.fontFamily}}>
+            <div className={styles.valueData} style={{color: userStyle.values.number, font: userStyle.values.font}}>
                 <ValueToString input={input === "" ? '""' : input}/>
             </div>
 
         )
     }else if(typeOfInput === "string" ){
         return (
-            <div className={styles.valueData} style={{color: userStyle.values.string, fontFamily: userStyle.values.fontFamily}}>
+            <div className={styles.valueData} style={{color: userStyle.values.string, font: userStyle.values.font}}>
                 <ValueToString input={input === "" ? '""' : input}/>
             </div>
 
@@ -118,7 +117,7 @@ export default function JsonView(
                 <div className={styles.dataNode}>
                     <div className={styles.emptyObject} style={{backgroundColor: focusOnLine ? userStyle.themes.hoverColor : ''}} onMouseOver={()=>{setFocusOnLine(true)}} onMouseLeave={()=>{setFocusOnLine(false)}} >
                         <div style={{paddingLeft: indent + "em"}}>
-                            <div className={styles.valueData} style={{paddingLeft: "12px", color: userStyle.values.string, fontFamily: userStyle.values.fontFamily}}>
+                            <div className={styles.valueData} style={{color: userStyle.values.string, font: userStyle.values.font}}>
                                 <span>{JSON.stringify(input)}</span>
                             </div>
                         </div>
@@ -128,12 +127,12 @@ export default function JsonView(
                             <div style={{
                                 fontStyle: "italic",
                                 color: userStyle.themes.color,
-                                fontFamily: userStyle.values.fontFamily
+                                font: userStyle.values.font
                             }}><TypeToString input={input}/></div>
                             <div className={styles.rightButton}>
                                 <button style={{
                                     backgroundColor: userStyle.buttons.delete,
-                                    fontFamily: userStyle.values.fontFamily
+                                    font: userStyle.values.font
                                 }} type={"button"} onClick={() => {
                                     deleteNode(jsonPath)
                                 }}> delete
@@ -205,19 +204,28 @@ function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, d
                 }}>
                     <div className={styles.keyData} style={{paddingLeft: indent + "em"}}>
 
-                        <div style={isList ? {display : "inline-block"} :  { visibility : "hidden"  } }>
+
+                        <div className={styles.arrow} style={ !isList ? { visibility : "hidden"  } : {} }>
                             <i className={showContent ? styles.arrowDown : styles.arrowRight} />
                         </div>
 
-                        {isInArray && <div className={styles.arrayType}/>}
-                        <span style={{color: userStyle.key.color, fontFamily: userStyle.key.fontFamily}}>{field === '' ? '""' : field}</span>
+
+                        <div style={{display: "flex", color: userStyle.key.color, font: userStyle.key.font}}>
+                            <div>
+                            {isInArray && <div className={styles.arrayType}/>}
+                                <span>{field === '' ? '""' : field}</span>
+                            </div>
+                            <div className={styles.keySpace}>
+                                <span>&#58;</span>
+                            </div>
+                        </div>
                     </div>
 
                     { focusOnLine &&
                     <div className={styles.rightContainer} style={{backgroundImage: 'linear-gradient(to right, transparent 0, ' + userStyle.themes.hoverColor  + ' 0.5em)'}}>
-                        <div style={{fontStyle:"italic", color:userStyle.themes.color, fontFamily: userStyle.values.fontFamily}}><TypeToString input={value}/></div>
+                        <div style={{font: userStyle.values.font, fontStyle:"italic", color:userStyle.themes.color}}><TypeToString input={value}/></div>
                         <div className={styles.rightButton}>
-                            <button style={{backgroundColor: userStyle.buttons.add, fontFamily: userStyle.values.fontFamily}} type={"button"} onClick={(e) => {
+                            <button style={{backgroundColor: userStyle.buttons.add}} type={"button"} onClick={(e) => {
                                 e.stopPropagation();
                                 e.preventDefault();
                                 createEditModal(jsonPath, field, value, isInArray, inputRef)
@@ -226,7 +234,7 @@ function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, d
                             </button>
                         </div>
                         <div className={styles.rightButton}>
-                            <button style={{backgroundColor: userStyle.buttons.delete, fontFamily: userStyle.values.fontFamily}} type={"button"} onClick={(e) => {
+                            <button style={{backgroundColor: userStyle.buttons.delete}} type={"button"} onClick={(e) => {
                                 e.stopPropagation();
                                 e.preventDefault();
                                 deleteNode(jsonPath + '/' + field)

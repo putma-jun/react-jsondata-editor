@@ -219,7 +219,7 @@ export default function Editor({input, jsonBoxRef, onChange}) {
             <div className={styles.modalContainer} style={{minWidth: '300px'}}>
                 <div>
                     <label className={styles.modalSelectLabel}
-                           style={{fontFamily: userStyle.key.fontFamily}}>Please select
+                           style={{font: userStyle.key.font}}>Please select
                         type of new data</label>
                 </div>
                 <div className={styles.modalSelectBtnContainer}>
@@ -242,7 +242,7 @@ export default function Editor({input, jsonBoxRef, onChange}) {
                 <div className={styles.insertBanner} style={{backgroundColor: focusOnBanner ? userStyle.banner.hoverColor : userStyle.themes.color}}
                      onMouseOver={()=>{setFocusOnBanner(true)}} onMouseLeave={()=>{setFocusOnBanner(false)}} onClick={()=>{
                          jsonData !== undefined ? createModal("") : setSelectType(true)}}>
-                    <span className={styles.bannerSpan} style={{color: userStyle.banner.fontColor, fontFamily: userStyle.banner.fontFamily}}> + Insert Object</span>
+                    <span className={styles.bannerSpan} style={{color: userStyle.banner.fontColor, font: userStyle.banner.font}}> + Insert Object</span>
                 </div>
                 <div className={styles.jsonListOutput} ref={jsonListOutput}>
                     <JsonView key={"DisplayJson"}

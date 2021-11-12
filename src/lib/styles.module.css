@@ -20,7 +20,6 @@ button{
 
 .JsonViewOutput{
     height: 100%;
-    line-height: 1.5em;
 }
 
 .insertBanner{
@@ -59,7 +58,7 @@ button{
 
 .dataNode{
     position: relative;
-    min-height: 32px;
+    min-height: 24px;
 }
 
 .clickNode{
@@ -82,11 +81,13 @@ button{
     position: absolute;
     right: 0;
     padding: 0 1em;
-    font-size: 16px;
+    margin: 0 auto;
 }
 
 .rightButton{
     padding-left: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .emptyObject{
@@ -96,32 +97,33 @@ button{
 
 .keyData{
     display: flex;
-    word-break: break-all;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-width: 50%;
 }
 
+.keySpace{
+    padding: 0 3px;
+}
 .arrayType + span{
+
     background-color: #eeeeef;
     border-radius: 2px;
-    padding: 0 6px;
+    padding: 0 5px;
     text-align: center;
-    max-height: 26px;
+
 }
 
 .valueData{
     display: inline-block;
-    margin-left: 4px;
-    word-break: break-all;
+    margin: auto 0;
+    word-break: break-word;
 }
 
-.keyData:after {
-    padding-left: 5px;
-    content: " : ";
+.arrow{
+    display: flex;
+    align-items: center;
 }
-
-.arrayType + .keyData + .valueData:before{
-    content: " ";
-}
-
 .arrowDown{
     margin-right: 8px;
     border: solid #787878;
