@@ -1,6 +1,6 @@
 {
   "name": "react-jsondata-editor",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A JSON editor library that displays and manipulates JSON objects",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",

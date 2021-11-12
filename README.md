@@ -1,7 +1,6 @@
 # react-jsondata-editor
 
 <a href="https://www.npmjs.com/package/react-jsondata-editor"> <img alt="npm" src="https://img.shields.io/npm/v/react-jsondata-editor"></a>
-<a href="https://www.npmjs.com/package/json-pointer"> <img alt="npm peer dependency version" src="https://img.shields.io/npm/dependency-version/react-jsondata-editor/peer/json-pointer"></a>
 <a href="https://github.com/putma-jun/react-jsondata-editor/actions/workflows/node.js.yml"><img alt="build status" src="https://github.com/putma-jun/react-jsondata-editor/actions/workflows/node.js.yml/badge.svg"></a>
 
 
@@ -17,7 +16,9 @@ It was built by rollup and has 'cjs' and 'esm' two versions.
 The cjs version is around 46 KB and the esm version is around 42 KB. 
 
 ---
-Version 2.0.0 : users can change css style with props 
+It was built with <a href="https://www.npmjs.com/package/json-pointer">json-pointer</a> v0.6.1
+
+Version ^2.0.0 : input/output are JSON string now, users can change css style with props 
 
 # Installation
 
