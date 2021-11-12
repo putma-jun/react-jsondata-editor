@@ -17,6 +17,8 @@ It was built by rollup and has 'cjs' and 'esm' two versions.
 The cjs version is around 46 KB and the esm version is around 42 KB. 
 
 ---
+It was built with <a href="https://www.npmjs.com/package/json-pointer">json-pointer</a> v0.6.1
+
 Version 2.0.0 : users can change css style with props 
 
 # Installation
