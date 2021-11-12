@@ -8,7 +8,9 @@ import React from 'react';
  */
 export default function TypeOfValue(input) {
 
-    if (input === null)
+    if (input === undefined)
+        return "undefined"
+    else if (input === null)
         return "null"
     else if (typeof input == "boolean")
         return "boolean"

@@ -1,159 +1,151 @@
 import React from 'react';
-import renderer from "react-test-renderer";
-import {JsonEditor} from "../src";
+import {create, act} from "react-test-renderer";
+import {JsonEditor} from "../src/index";
 
-test('undefined test', ()=>{
+test('undefined test', () =>{
+    let component;
+    let component2;
 
-    const component = renderer.create(
-        <JsonEditor jsonObject={undefined} onChange={(output) => {return output }} />
-    );
+    act(() => {
+        component = create( <JsonEditor />)
+    });
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(component.toJSON()).toMatchSnapshot();
 
-    let component2 = renderer.create(
-        <JsonEditor onChange={(output) => {return output }} />
-    );
-
-    let tree2 = component2.toJSON();
-    expect(JSON.stringify(tree)).toEqual(JSON.stringify(tree2))
-
-    component2 = renderer.create(
-        <JsonEditor jsonObject={{}} onChange={(output) => {return output }} />
-    );
-
-    tree2 = component2.toJSON();
-    expect(JSON.stringify(tree)).not.toBe(JSON.stringify(tree2))
-});
-
-test('null test', ()=>{
-    // Checks null type is okay
-    const component = renderer.create(
-        <JsonEditor jsonObject={null} onChange={(output) => {return output }} />
-    );
-
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-
-
-    // Checks with other types
-    let component2 = renderer.create(
-        <JsonEditor jsonObject={"null"} onChange={(output) => {return output }} />
-    );
-
-    let tree2 = component2.toJSON();
-    expect(JSON.stringify(tree)).not.toBe(JSON.stringify(tree2))
-
-    component2 = renderer.create(
-        <JsonEditor onChange={(output) => {return output }} />
-    );
-
-    tree2 = component2.toJSON();
-    expect(JSON.stringify(tree)).not.toBe(JSON.stringify(tree2))
-
+    act(() => {
+        component2 = create( <JsonEditor jsonObject={JSON.stringify({})}/>);
+    })
+    expect(component2.toJSON()).toMatchSnapshot();
+    expect(component2.toJSON()).not.toBe(component.toJSON())
 });
 
 
-test('boolean true test', ()=>{
-    const component = renderer.create(
-        <JsonEditor jsonObject={true} onChange={(output) => {return output }} />
-    );
+test('null test', () =>{
+    let component;
+    let component2;
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    act(() => {
+        component = create( <JsonEditor jsonObject={JSON.stringify(null)}/>)
+    });
 
-    let component2 = renderer.create(
-        <JsonEditor jsonObject={false} onChange={(output) => {return output }} />
-    );
+    expect(component.toJSON()).toMatchSnapshot();
 
-    let tree2 = component2.toJSON();
-    expect(JSON.stringify(tree)).not.toBe(JSON.stringify(tree2))
+    act(() => {
+        component2 = create( <JsonEditor/>);
+    })
+    expect(component2.toJSON()).not.toBe((component.toJSON()));
+
 });
 
-test('boolean false test', ()=>{
-    const component = renderer.create(
-        <JsonEditor jsonObject={false} onChange={(output) => {return output }} />
-    );
+test('boolean test', () =>{
+    let component;
+    let component2;
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    act(() => {
+        component = create( <JsonEditor jsonObject={JSON.stringify(true)}/>)
+    });
 
-    let component2 = renderer.create(
-        <JsonEditor jsonObject={true} onChange={(output) => {return output }} />
-    );
+    expect(component.toJSON()).toMatchSnapshot();
 
-    let tree2 = component2.toJSON();
-    expect(JSON.stringify(tree)).not.toBe(JSON.stringify(tree2))
+    act(() => {
+        component2 = create( <JsonEditor jsonObject={JSON.stringify(false)}/>);
+    })
+    expect(component2.toJSON()).toMatchSnapshot();
+    expect(component2.toJSON()).not.toBe((component.toJSON()));
+
 });
 
-test('number test', ()=>{
-    const component = renderer.create(
-        <JsonEditor jsonObject={564608} onChange={(output) => {return output }} />
-    );
+test('number test', () =>{
+    let component;
+    let component2;
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    act(() => {
+        component = create( <JsonEditor jsonObject={JSON.stringify(564608)}/>)
+    });
 
-    let component2 = renderer.create(
-        <JsonEditor jsonObject={"564608"} onChange={(output) => {return output }} />
-    );
+    expect(component.toJSON()).toMatchSnapshot();
 
-    let tree2 = component2.toJSON();
-    expect(JSON.stringify(tree)).not.toBe(JSON.stringify(tree2))
+    act(() => {
+        component2 = create( <JsonEditor jsonObject={JSON.stringify("564608")}/>);
+    })
+    expect(component2.toJSON()).toMatchSnapshot();
+    expect(component2.toJSON()).not.toBe((component.toJSON()));
 
-    const component3 = renderer.create(
-        <JsonEditor jsonObject={-564608.23} onChange={(output) => {return output }} />
-    );
 
-    let tree3 = component3.toJSON();
-    expect(tree3).toMatchSnapshot();
+    act(() => {
+        component2.update( <JsonEditor jsonObject={JSON.stringify(564608.02)}/>);
+    })
+
+    expect(component2.toJSON()).not.toBe((component.toJSON()))
+
+    act(() => {
+        component2.update( <JsonEditor jsonObject={JSON.stringify(-564608)}/>);
+    })
+
 });
 
-test('string test', ()=>{
-    const component = renderer.create(
-        <JsonEditor jsonObject={"string test"} onChange={(output) => {return output }} />
-    );
+test('string test', () =>{
+    let component;
+    let component2;
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    act(() => {
+        component = create( <JsonEditor jsonObject={JSON.stringify("test")}/>)
+    });
+
+    expect(component.toJSON()).toMatchSnapshot();
+
+    act(() => {
+        component2 = create( <JsonEditor jsonObject={"test"}/>);
+    })
+    expect(component2.toJSON()).toMatchSnapshot();
+    expect(component2.toJSON()).not.toBe((component.toJSON()));
 
 });
 
 
-test('array test', ()=>{
-    const component = renderer.create(
-        <JsonEditor jsonObject={[null, false, true, 1007, "test"]} onChange={(output) => {return output }} />
-    );
+test('array test', () =>{
+    let component;
+    let component2;
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    act(() => {
+        component = create( <JsonEditor jsonObject={JSON.stringify([null, false, true, 1007, "test"])}/>)
+    });
+
+    expect(component.toJSON()).toMatchSnapshot();
+
+    act(() => {
+        component2 = create( <JsonEditor jsonObject={JSON.stringify(  [{0: null }, {1:false}, {2:true}, {3:1007}, {4:"test"} ])}/>);
+    })
+    expect(component2.toJSON()).toMatchSnapshot();
+    expect(JSON.stringify(component2.toJSON())).not.toBe(JSON.stringify(component.toJSON()));
+
 });
 
-test('object test', ()=>{
-    const component = renderer.create(
-        <JsonEditor jsonObject={
-            {
-                "example": {
-                    "id": "json",
-                    "age": 99,
-                    "working": true,
-                    "problem": null,
-                    "more info": {
-                        "car": {
-                            "brand": "a-brand",
-                            "year": 2020,
-                            "owners": [
-                                "father",
-                                "brother"
-                            ]
-                        }
+
+test('object test', () =>{
+    let component;
+
+    act(() => {
+        component = create( <JsonEditor jsonObject={JSON.stringify(    {
+            "example": {
+                "id": "json",
+                "age": 99,
+                "working": true,
+                "problem": null,
+                "more info": {
+                    "car": {
+                        "brand": "a-brand",
+                        "year": 2020,
+                        "owners": [
+                            "father",
+                            "brother"
+                        ]
                     }
                 }
             }
-        }
-            onChange={(output) => {return output }} />
-    );
+        })}/>)
+    });
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(component.toJSON()).toMatchSnapshot();
+
 });

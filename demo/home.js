@@ -10,7 +10,6 @@ import * as styles from './Index.module.css';
  * @returns {JSX.Element}
  *
  */
-
 export default function Home() {
     let input =
         {
@@ -32,22 +31,12 @@ export default function Home() {
             }
         }
 
+    let currentEditObj = JSON.stringify(input, null, ' ')
 
-    let currentEditObj ;
-
-    const [jsonInput, setJsonInput] = useState(JSON.stringify(input, null, ' '))
+    const [jsonInput, setJsonInput] = useState(currentEditObj)
 
     function textSave(e) {
         setJsonInput(e.target.value)
-    }
-
-    function ToJson(input){
-        try {
-            return JSON.parse(input)
-        } catch {
-            return undefined
-        }
-
     }
 
     function saveJsonString() {
@@ -55,7 +44,7 @@ export default function Home() {
         if(currentEditObj === undefined){
             setJsonInput('')
         }else{
-            setJsonInput(JSON.stringify(currentEditObj, null, ' '))
+            setJsonInput(currentEditObj)
         }
     }
 
@@ -73,15 +62,15 @@ export default function Home() {
 
                     <div className={styles.middleContainer}>
                         <div style={{textAlign: "center"}}>
-                            <button type={"button"} onClick={saveJsonString}><span><i className={styles.arrowLeft}/> String</span>
+                            <button type={"button"} className={styles.toString} onClick={saveJsonString}><span><i className={styles.arrowLeft}/> String</span>
                             </button>
                         </div>
                     </div>
 
                     <div className={styles.output}>
-                        <JsonEditor jsonObject={ ToJson(jsonInput) } onChange={(output) => {
-                            currentEditObj = output
-                        }}/>
+                        <JsonEditor jsonObject={ jsonInput } onChange={(output) => {
+                            currentEditObj = output;
+                        }} />
                     </div>
                 </div>
 

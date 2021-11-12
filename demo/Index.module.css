@@ -1,15 +1,12 @@
 button {
     border-radius: 12px;
-    background-color: #AAAAAA; /* Green */
     border: none;
     color: white;
     padding: 2px 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    cursor: pointer;
 }
-
 
 html,
 body,
@@ -88,6 +85,9 @@ body {
 
 }
 
+.toString{
+    background-color: gray;
+}
 .arrowLeft{
     margin-right: 8px;
     border: solid rgba(255,255,255,0.9);
@@ -98,17 +98,9 @@ body {
     -webkit-transform: rotate(135deg);
 }
 
-.arrowRight{
-    margin-right: 8px;
-    border: solid rgba(255,255,255,0.9);
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-}
 .output{
     flex: 50%;
     height: 100%;
     display: flex;
+    border: 1px solid rgba(0,0,0,.2);
 }

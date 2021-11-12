@@ -1,6 +1,6 @@
 {
   "name": "react-jsondata-editor",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A JSON editor library that displays and manipulates JSON objects",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -12,10 +12,13 @@
     "clean": "rimraf dist && rimraf .parcel-cache && rimraf lib"
   },
   "keywords": [
-    "react json editor",
-    "json-editor",
+    "react",
+    "json",
+    "editor",
+    "react json",
     "json editor",
-    "react editor"
+    "react editor",
+    "react json editor"
   ],
   "author": {
     "name": "Junhyeok Bang",
@@ -27,8 +30,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.0.0 || ^17.0.0",
-    "json-pointer": "^0.6.1"
+    "react": "^16.0.0 || ^17.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
