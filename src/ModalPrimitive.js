@@ -21,8 +21,8 @@ export default function ModalPrimitive({primitiveValue, savePrimitive}) {
                 savePrimitive(inputValue === null ? "null" : inputValue)
             }}>
 
-                <div className={styles.modalInputContainer}>
-                    <label className={styles.modalLabel} style={{fontFamily:userStyle.key.fontFamily}}>Value</label>
+                <div>
+                    <label className={styles.modalLabel} style={{font:userStyle.key.font}}>Value</label>
                     <input value={inputValue === null ? "null" : inputValue} className={styles.primitiveInput} onChange={(e) => {
                         setInputValue(e.target.value)
                     }}/>
@@ -30,13 +30,13 @@ export default function ModalPrimitive({primitiveValue, savePrimitive}) {
 
                 <div style={{float: "right"}}>
                     <div className={styles.modalBtnContainer}>
-                        <div className={styles.modalModifyBtnContainer}>
-                            <button type={"button"} className={styles.modalButton} style={{fontFamily:userStyle.values.fontFamily, backgroundColor:userStyle.buttons.cancel}}
+                        <div className={styles.modalModifyBtnContainer} >
+                            <button  type={"button"} className={styles.modalButton} style={{backgroundColor:userStyle.buttons.cancel}}
                                     onClick={() => {
                                         savePrimitive()
-                            }}> Cancel
-                            </button>
-                            <button type={"submit"} className={styles.modalButton} style={{fontFamily:userStyle.values.fontFamily, backgroundColor:userStyle.buttons.update}}>Update</button>
+                            }}> <span style={{font:userStyle.values.font, lineHeight:"normal"}}>Cancel</span></button>
+                            <button type={"submit"} className={styles.modalButton} style={{backgroundColor:userStyle.buttons.update}}>
+                                <span style={{font:userStyle.values.font, lineHeight:"normal"}}>Update</span></button>
                         </div>
                     </div>
                 </div>
