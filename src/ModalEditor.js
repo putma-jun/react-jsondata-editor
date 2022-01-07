@@ -78,18 +78,19 @@ export default function ModalEditor({editObject, changeNode, deleteNode}) {
                 }
                 <div className={styles.modalBtnContainer}>
                     {(valueType === "object") ? <div/> :
-                        <button type={"button"} className={styles.modalButton} style={{fontFamily:userStyle.values.fontFamily, backgroundColor:userStyle.buttons.delete}}
+                        <button type={"button"} className={styles.modalButton} style={{backgroundColor:userStyle.buttons.delete}}
                                 onClick={() => {
                             deleteNode(path + '/' + field)
-                        }}> Delete </button>}
+                                }}><span style={{font:userStyle.values.font, lineHeight:"normal"}}>Delete</span> </button>}
 
                     <div className={styles.modalModifyBtnContainer}>
-                        <button type={"button"} className={styles.modalButton} style={{fontFamily:userStyle.values.fontFamily, backgroundColor:userStyle.buttons.cancel}}
+                        <button type={"button"} className={styles.modalButton} style={{backgroundColor:userStyle.buttons.cancel}}
                                 onClick={() => {
                             deleteNode(undefined)
-                        }}> Cancel
+                                }}><span style={{font:userStyle.values.font, lineHeight:"normal"}}>Cancel</span>
                         </button>
-                        <button type={"submit"} className={styles.modalButton} style={{fontFamily:userStyle.values.fontFamily, backgroundColor:userStyle.buttons.update}}> Update</button>
+                        <button type={"submit"} className={styles.modalButton} style={{backgroundColor:userStyle.buttons.update}}>
+                            <span style={{font:userStyle.values.font, lineHeight:"normal"}}>Update</span></button>
                     </div>
                 </div>
             </form>

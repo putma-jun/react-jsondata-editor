@@ -226,13 +226,11 @@ export default function Editor({input, jsonBoxRef, onChange}) {
                     <button type={"button"} className={styles.modalSelectBtn}
                             style={{backgroundColor: userStyle.themes.color}} onClick={() => {
                         setPrimitive(""); setSelectType(false)
-                    }}>Text
-                    </button>
+                    }}><span style={{font:userStyle.values.font, lineHeight:"normal"}}>Text</span></button>
                     <button type={"button"} className={styles.modalSelectBtn}
                             style={{backgroundColor: userStyle.themes.color}} onClick={() => {
                         createModal(""); setSelectType(false)
-                    }}>Object
-                    </button>
+                    }}><span style={{font:userStyle.values.font, lineHeight:"normal"}}>Object</span></button>
                 </div>
             </div>
             }

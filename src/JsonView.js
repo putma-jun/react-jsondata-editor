@@ -65,16 +65,18 @@ export default function JsonView(
                         <div className={styles.rightContainer}
                              style={{backgroundImage: 'linear-gradient(to right, transparent 0, ' + userStyle.themes.hoverColor + ' 0.5em)'}}>
                             <div style={{
+                                font: userStyle.values.font,
                                 fontStyle: "italic",
-                                color: userStyle.themes.color,
-                                font: userStyle.values.font
+                                color: userStyle.themes.color
                             }}><TypeToString input={input}/></div>
-                            <div className={styles.rightButton}>
+                            <div className={styles.rightButton} >
                                 <button style={{
                                     backgroundColor: userStyle.buttons.delete,
-                                }} type={"button"} onClick={() => {
+                                }} type={"button"} onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
                                     deleteNode(jsonPath)
-                                }}> delete
+                                }}><span style={{font:userStyle.values.font, lineHeight:"normal"}}>Delete</span>
                                 </button>
                             </div>
                         </div>
@@ -123,19 +125,20 @@ export default function JsonView(
                         </div>
                         { focusOnLine &&
                         <div className={styles.rightContainer}
-                             style={{backgroundImage: 'linear-gradient(to right, transparent 0, ' + userStyle.themes.hoverColor + ' 0.5em)'}}>
+                             style={{ backgroundImage: 'linear-gradient(to right, transparent 0, ' + userStyle.themes.hoverColor + ' 0.5em)'}}>
                             <div style={{
+                                font: userStyle.values.font,
                                 fontStyle: "italic",
-                                color: userStyle.themes.color,
-                                font: userStyle.values.font
+                                color: userStyle.themes.color
                             }}><TypeToString input={input}/></div>
-                            <div className={styles.rightButton}>
+                            <div className={styles.rightButton} >
                                 <button style={{
                                     backgroundColor: userStyle.buttons.delete,
-                                    font: userStyle.values.font
-                                }} type={"button"} onClick={() => {
+                                }} type={"button"} onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
                                     deleteNode(jsonPath)
-                                }}> delete
+                                }}><span style={{font:userStyle.values.font, lineHeight:"normal"}}>Delete</span>
                                 </button>
                             </div>
                         </div>
@@ -222,7 +225,7 @@ function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, d
                     </div>
 
                     { focusOnLine &&
-                    <div className={styles.rightContainer} style={{backgroundImage: 'linear-gradient(to right, transparent 0, ' + userStyle.themes.hoverColor  + ' 0.5em)'}}>
+                    <div className={styles.rightContainer} style={{ backgroundImage: 'linear-gradient(to right, transparent 0, ' + userStyle.themes.hoverColor  + ' 0.5em)'}}>
                         <div style={{font: userStyle.values.font, fontStyle:"italic", color:userStyle.themes.color}}><TypeToString input={value}/></div>
                         <div className={styles.rightButton}>
                             <button style={{backgroundColor: userStyle.buttons.add}} type={"button"} onClick={(e) => {
@@ -230,7 +233,7 @@ function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, d
                                 e.preventDefault();
                                 createEditModal(jsonPath, field, value, isInArray, inputRef)
                             }}>
-                                {isList ? "Add" : "Edit"}
+                                <span style={{font:userStyle.values.font, lineHeight:"normal"}}>{isList ? "Add" : "Edit"}</span>
                             </button>
                         </div>
                         <div className={styles.rightButton}>
@@ -238,7 +241,7 @@ function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, d
                                 e.stopPropagation();
                                 e.preventDefault();
                                 deleteNode(jsonPath + '/' + field)
-                            }}> delete
+                            }}><span style={{font:userStyle.values.font, lineHeight:"normal"}}>Delete</span>
                             </button>
                         </div>
                     </div>
