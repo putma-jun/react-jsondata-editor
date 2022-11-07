@@ -19,7 +19,7 @@ import ModalPrimitive from "./ModalPrimitive";
  * @returns {JSX.Element}
  *
  */
-export default function Editor({input, jsonBoxRef, onChange}) {
+export default function Editor({input, jsonBoxRef, onChange, hideInsertObjectButton, expandToGeneration}) {
 
     const emptyValues = {
             path : undefined,
@@ -236,12 +236,13 @@ export default function Editor({input, jsonBoxRef, onChange}) {
             }
 
             <div key={"jsonBody"} className={styles.JsonViewOutput}>
-
-                <div className={styles.insertBanner} style={{backgroundColor: focusOnBanner ? userStyle.banner.hoverColor : userStyle.themes.color}}
-                     onMouseOver={()=>{setFocusOnBanner(true)}} onMouseLeave={()=>{setFocusOnBanner(false)}} onClick={()=>{
-                         jsonData !== undefined ? createModal("") : setSelectType(true)}}>
-                    <span className={styles.bannerSpan} style={{color: userStyle.banner.fontColor, font: userStyle.banner.font}}> + Insert Object</span>
-                </div>
+                {!hideInsertObjectButton &&
+                  <div className={styles.insertBanner} style={{backgroundColor: focusOnBanner ? userStyle.banner.hoverColor : userStyle.themes.color}}
+                      onMouseOver={()=>{setFocusOnBanner(true)}} onMouseLeave={()=>{setFocusOnBanner(false)}} onClick={()=>{
+                          jsonData !== undefined ? createModal("") : setSelectType(true)}}>
+                      <span className={styles.bannerSpan} style={{color: userStyle.banner.fontColor, font: userStyle.banner.font}}> + Insert Object</span>
+                  </div>
+                }
                 <div className={styles.jsonListOutput} ref={jsonListOutput}>
                     <JsonView key={"DisplayJson"}
                               input={jsonData}
@@ -250,6 +251,7 @@ export default function Editor({input, jsonBoxRef, onChange}) {
                               deleteNode={deleteNode}
                               setPrimitive={setPrimitive}
                               createModal={createModal}
+                              expandToGeneration={expandToGeneration}
                               />
                 </div>
             </div>
