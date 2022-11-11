@@ -13,7 +13,7 @@ import UserContext from "./UserContext"
  * @returns {JSX.Element}
  *
  */
-function JsonEditor({jsonObject, onChange, theme, bannerStyle, keyStyle, valueStyle, buttonStyle}) {
+function JsonEditor({jsonObject, onChange, theme, hideInsertObjectButton, expandToGeneration, isReadOnly, bannerStyle, keyStyle, valueStyle, buttonStyle}) {
 
     const jsonBoxRef = useRef()
     const defaultStyle = useContext(UserContext)
@@ -27,7 +27,7 @@ function JsonEditor({jsonObject, onChange, theme, bannerStyle, keyStyle, valueSt
             buttons: buttonStyle === undefined ? defaultStyle.buttons : buttonStyle
         }}>
             <div className={styles.container} ref={jsonBoxRef}>
-                <Editor input={jsonObject} jsonBoxRef={jsonBoxRef} onChange={onChange}/>
+                <Editor input={jsonObject} jsonBoxRef={jsonBoxRef} onChange={onChange} hideInsertObjectButton={hideInsertObjectButton} expandToGeneration={expandToGeneration} isReadOnly={isReadOnly} />
             </div>
         </UserContext.Provider>
     )

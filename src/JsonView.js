@@ -18,6 +18,8 @@ import UserContext from "./UserContext";
  * @param createModal creates edit modal component
  * @param indent indentation
  * @param needLeaf indicates "", [] or {}
+ * @param expandToGeneration Show content if the child's generation index is > expandToGeneration
+ * @param isReadOnly true: do not show overlay to edit and delete
 
  * @returns {JSX.Element|[]}
  */
@@ -31,6 +33,8 @@ export default function JsonView(
         createModal,
         indent = 1,
         needLeaf = true,
+        expandToGeneration = undefined,
+        isReadOnly = false
     }) {
 
     const typeOfInput = TypeOfValue(input)
@@ -59,9 +63,9 @@ export default function JsonView(
                 <div className={styles.dataNode} onClick={()=>{ changePrimitive(input)}}>
                     <div className={styles.needLeaf} style={{backgroundColor: focusOnLine ? userStyle.themes.hoverColor : ''}} onMouseOver={()=>{setFocusOnLine(true)}} onMouseLeave={()=>{setFocusOnLine(false)}}>
                         <div>
-                            <JsonView jsonPath={jsonPath} input={input} indent={indent} needLeaf={false}/>
+                            <JsonView jsonPath={jsonPath} input={input} indent={indent} needLeaf={false} expandToGeneration={expandToGeneration} isReadOnly={isReadOnly} />
                         </div>
-                        {focusOnLine &&
+                        {!isReadOnly && focusOnLine &&
                         <div className={styles.rightContainer}
                              style={{backgroundImage: 'linear-gradient(to right, transparent 0, ' + userStyle.themes.hoverColor + ' 0.5em)'}}>
                             <div style={{
@@ -123,7 +127,7 @@ export default function JsonView(
                                 <span>{JSON.stringify(input)}</span>
                             </div>
                         </div>
-                        { focusOnLine &&
+                        {!isReadOnly && focusOnLine &&
                         <div className={styles.rightContainer}
                              style={{ backgroundImage: 'linear-gradient(to right, transparent 0, ' + userStyle.themes.hoverColor + ' 0.5em)'}}>
                             <div style={{
@@ -158,7 +162,7 @@ export default function JsonView(
                 <ViewNode key={jsonPath + "/" +key} jsonPath={jsonPath} field={key} value={value}
                           indent={indent} isInArray={input instanceof Array}
                           deleteNode={deleteNode} setPrimitive={setPrimitive} createModal={createModal} createEditModal={createEditModal}
-                          jsonListOutput={jsonListOutput}/>
+                          jsonListOutput={jsonListOutput} expandToGeneration={expandToGeneration} isReadOnly={isReadOnly}/>
             )
         })
     )
@@ -178,12 +182,14 @@ export default function JsonView(
  * @param setPrimitive changes a primitive value
  * @param createModal creates edit modal component
  * @param createEditModal saves information with current position node of for modal editor when a user clicks add or edit button
+ * @param expandToGeneration Show content if the child's generation index is > expandToGeneration
+ * @param isReadOnly true: do not show edit && delete buttons
  * @returns {JSX.Element}
  *
  */
-function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, deleteNode, setPrimitive, createModal, createEditModal}) {
+function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, deleteNode, setPrimitive, createModal, createEditModal, expandToGeneration, isReadOnly}) {
 
-    const [showContent, setShowContent] = useState(true)
+    const [showContent, setShowContent] = useState(expandToGeneration === undefined ? true : (jsonPath.match(/\//g) || []).length <= expandToGeneration)
     const [focusOnLine, setFocusOnLine] = useState(false)
     const isList = value instanceof Object
     // current clickNode position
@@ -194,10 +200,14 @@ function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, d
         <div className={styles.dataContainer}>
             <div className={styles.dataNode} ref={inputRef}>
                 <div className={styles.clickNode}
-                     style={{backgroundColor: focusOnLine ? userStyle.themes.hoverColor : ''}} onMouseOver={()=>{setFocusOnLine(true)}} onMouseLeave={()=>{setFocusOnLine(false)}}
+                     style={{backgroundColor: focusOnLine ? userStyle.themes.hoverColor : '', cursor: isReadOnly ? 'default': 'pointer'}} onMouseOver={()=>{setFocusOnLine(!isReadOnly && true)}} onMouseLeave={()=>{setFocusOnLine(false)}}
                      onClick={(e)=>{
                     e.stopPropagation();
                     e.preventDefault();
+
+                    if (isReadOnly) {
+                      return;
+                    }
 
                     if(isList) {
                         setShowContent(!showContent)
@@ -224,7 +234,7 @@ function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, d
                         </div>
                     </div>
 
-                    { focusOnLine &&
+                    { !isReadOnly && focusOnLine &&
                     <div className={styles.rightContainer} style={{ backgroundImage: 'linear-gradient(to right, transparent 0, ' + userStyle.themes.hoverColor  + ' 0.5em)'}}>
                         <div style={{font: userStyle.values.font, fontStyle:"italic", color:userStyle.themes.color}}><TypeToString input={value}/></div>
                         <div className={styles.rightButton}>
@@ -248,7 +258,7 @@ function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, d
                     }
 
                     {
-                        !isList && <JsonView input={value} needLeaf={false}/>
+                        !isList && <JsonView input={value} needLeaf={false} expandToGeneration={expandToGeneration} isReadOnly={isReadOnly} />
                     }
                 </div>
 
@@ -258,7 +268,7 @@ function ViewNode({ jsonPath, field, value, jsonListOutput, indent, isInArray, d
                 isList && showContent &&
                 <JsonView jsonPath={jsonPath + '/' + field} input={value} indent={indent + 1}
                              deleteNode={deleteNode} setPrimitive={setPrimitive} needLeaf={false}
-                             jsonListOutput={jsonListOutput} createModal={createModal}/>
+                             jsonListOutput={jsonListOutput} createModal={createModal} expandToGeneration={expandToGeneration} isReadOnly={isReadOnly} />
             }
 
         </div>
