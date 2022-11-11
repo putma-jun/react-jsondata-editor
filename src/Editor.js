@@ -19,7 +19,7 @@ import ModalPrimitive from "./ModalPrimitive";
  * @returns {JSX.Element}
  *
  */
-export default function Editor({input, jsonBoxRef, onChange, hideInsertObjectButton, expandToGeneration}) {
+export default function Editor({input, jsonBoxRef, onChange, hideInsertObjectButton, expandToGeneration, isReadOnly}) {
 
     const emptyValues = {
             path : undefined,
@@ -236,7 +236,7 @@ export default function Editor({input, jsonBoxRef, onChange, hideInsertObjectBut
             }
 
             <div key={"jsonBody"} className={styles.JsonViewOutput}>
-                {!hideInsertObjectButton &&
+                {!hideInsertObjectButton && !isReadOnly &&
                   <div className={styles.insertBanner} style={{backgroundColor: focusOnBanner ? userStyle.banner.hoverColor : userStyle.themes.color}}
                       onMouseOver={()=>{setFocusOnBanner(true)}} onMouseLeave={()=>{setFocusOnBanner(false)}} onClick={()=>{
                           jsonData !== undefined ? createModal("") : setSelectType(true)}}>
@@ -252,6 +252,7 @@ export default function Editor({input, jsonBoxRef, onChange, hideInsertObjectBut
                               setPrimitive={setPrimitive}
                               createModal={createModal}
                               expandToGeneration={expandToGeneration}
+                              isReadOnly={isReadOnly}
                               />
                 </div>
             </div>
